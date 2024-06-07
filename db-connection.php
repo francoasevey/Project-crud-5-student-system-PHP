@@ -4,9 +4,14 @@ $db_user = "root";
 $db_pass = "";
 $db_name = "systemalumnos";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$link = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+        if (!$link) {
+            echo "Error: no se puede conectar a MYSQL." . PHP_EOL;
+            echo "<br>";
+            echo "error de depuración: " . mysqli_connect_errno() . PHP_EOL;
+            echo "<br>";
+            echo "error de depuración: " . mysqli_connect_error() . PHP_EOL;
+            exit();
+        }
 ?>
