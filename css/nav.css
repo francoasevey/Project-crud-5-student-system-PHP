@@ -1,99 +1,46 @@
-/*====================================================================================*/
+body {
+  font-family: Arial, sans-serif;
+}
 
-.heading-link {
-    text-align: center;
-    background: url("/assets/supermarket.png") no-repeat;
-    background-size: cover;
-    background-position: center;
+.navbar-brand {
+  font-weight: bold;
+  color: #333;
+}
+
+.navbar-nav .nav-link {
+  color: #333 !important;
+}
+
+.dropdown-menu {
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.dropdown-item {
+  color: #333 !important;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background-color: #f8f9fa !important;
+}
+
+.navbar-nav .dropdown-menu {
+  margin-top: 0;
+}
+
+@media (min-width: 992px) {
+  .navbar-nav.ml-auto {
+      display: flex;
+      align-items: center;
   }
-  .heading-link h3 {
-    font-size: 4rem;
-    text-transform: capitalize;
-    color: #000000;
+
+  .navbar-nav .nav-item {
+      margin-right: 15px;
   }
-  .heading-link p {
-    font-size: 3rem;
-    font-weight: 900;
-    line-height: 2;
-    color: #000000;
+
+  .dropdown:hover .dropdown-menu {
+      display: block;
   }
-  .heading-link p a {
-    color: #0044ff;
-  }
-  .heading-link p a:hover {
-    text-decoration: underline;
-  }
-  
-  section {
-    padding: 5rem 10%;
-  }
-  .heading {
-    text-align: center;
-    margin-bottom: 3rem;
-    font-size: 3.5rem;
-    text-transform: capitalize;
-    color: #444;
-  }
-  
-  .btn {
-    display: inline-block;
-    margin-top: 1rem;
-    padding: 1rem 3rem;
-    font-size: 2.5rem;
-    border-radius: 10%;
-    border: 0.1rem solid #3a3b3b;
-    background: #f0f6fd;
-    color: #ff0000;
-    cursor: pointer;
-    text-transform: capitalize;
-  }
-  .btn:hover {
-    background: #ff0202;
-    color: #fff;
-  }
-  /*====================================================================================*/
-  
-  .header {
-    position: sticky;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: #fff;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-    padding: 2rem 10%;
-    display: flex;
-    align-items: center;
-    z-index: 1000;
-  }
-  .header .logo {
-    margin-right: auto;
-    font-size: 2.5rem;
-    text-transform: capitalize;
-    color: #444;
-    font-weight: bolder;
-  }
-  .header .logo i {
-    color: #0022ff;
-  }
-  .header .navbar {
-    position: relative;
-  }
-  
-  .header .navbar a {
-    margin-right: 2rem;
-    font-size: 2rem;
-    text-transform: capitalize;
-    color: #444;
-  }
-  .header .navbar a:hover {
-    color: #0322bc;
-  }
-  .header .icons div {
-    cursor: pointer;
-    font-size: 2.5rem;
-    color: #444;
-    margin-left: 1.5rem;
-  }
-  .header .icons div:hover {
-    color: #001eff;
-  }
+}
