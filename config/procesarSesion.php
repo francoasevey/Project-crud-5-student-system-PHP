@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows > 0) {
         $_SESSION["usuario"] = $usuario;
 
-        header("Location: ../views/home.php");
+        header("Location: ../views/inicio.php");
         exit();
     } else {
         header("Location: ../config/sesion.php?error=1"); 
