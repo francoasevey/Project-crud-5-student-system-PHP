@@ -9,10 +9,10 @@
 </head>
 <body>
 <section class="home">
-            <section class="slide background" style="background-image: url(assets/fondo.jpg);">
+            <section class="slide background">
                 <div class="content">
                     <h3><strong>WELCOME!</strong><br>the best sistema de gestion</h3>
-                    <a href="#" class="btn">get started</a>
+                    <a href="sesion.php" class="btn">get started</a>
                 </div>
             </section>
   </section>
