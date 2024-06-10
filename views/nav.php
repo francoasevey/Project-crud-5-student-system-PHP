@@ -18,8 +18,19 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
+            <!--<li class="nav-item">
               <a class="nav-link" href="inicio.php">Inicio</a>
+            </li>-->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="listadosDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Listados
+              </a>
+              <div class="dropdown-menu" aria-labelledby="listadosDropdown">
+                <a class="dropdown-item" href="#">Mesas de Exámenes Habilitadas</a>
+                <a class="dropdown-item" href="#">Alumnos por Mesa</a>
+                <a class="dropdown-item" href="#">Mesas por DNI</a>
+                <a class="dropdown-item" href="#">Listado de Alumnos</a>
+              </div>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="mesasDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -58,17 +69,7 @@
                 <a class="dropdown-item" href="#">Modificar Usuario</a>
               </div>
             </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="listadosDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Listados
-              </a>
-              <div class="dropdown-menu" aria-labelledby="listadosDropdown">
-                <a class="dropdown-item" href="#">Mesas de Exámenes Habilitadas</a>
-                <a class="dropdown-item" href="#">Alumnos por Mesa</a>
-                <a class="dropdown-item" href="#">Mesas por DNI</a>
-                <a class="dropdown-item" href="#">Listado de Alumnos</a>
-              </div>
-            </li>
+            
             <li class="nav-item">
               <a class="nav-link" href="#">Cerrar Sesión</a>
             </li>
@@ -79,6 +80,7 @@
 
   </div>
   </div>
+  <?php include 'footer.php'; ?>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
