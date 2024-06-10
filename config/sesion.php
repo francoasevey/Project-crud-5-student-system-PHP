@@ -1,46 +1,89 @@
-<?php
-session_start(); // Iniciar o continuar la sesión
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Register</title>
+    <link rel="stylesheet" type="text/css" href="../css/sesion.css">
 
-// Verificar si se ha enviado el formulario
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $db_host = "localhost"; 
-    $db_user = "root";
-    $db_pass = "";
-    $db_name = "sistemagestionexamenes";
-    
-    $link = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
-    
-    if (!$link) {
-        echo "Error: no se puede conectar a MYSQL." . PHP_EOL;
-        echo "<br>";
-        echo "error de depuración: " . mysqli_connect_errno() . PHP_EOL;
-        echo "<br>";
-        echo "error de depuración: " . mysqli_connect_error() . PHP_EOL;
-        exit();
-    }
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+<body>
+    <!--<header>
+        <h2 class="logo">BigCity</h2>
+        <nav class="navegacion">
+            <a href="#">Inicio</a>
+            <a href="#">Informacion</a>
+            <a href="#">Servicios</a>
+            <a href="#">Contactos</a>
+            <button class="btn">Iniciar Sesion</button>
+        </nav>
+    </header>-->
 
-    // Obtener los datos del formulario
-    $usuario = $_POST["usuario"];
-    $clave = $_POST["password"];
+    <div class="fondo">
+        <!--<span class="icono-cerrar"><i class="ri-close-fill"></i></span>-->
+        <div class="contenedor-form login">
+            <h2>Iniciar Sesion</h2>
+            <?php
+        // Verificar si hay un error y mostrar el mensaje correspondiente
+        if (isset($_GET['error'])) {
+            echo '<div class="alert alert-danger" role="alert">Usuario o contraseña incorrectos.</div>';
+        }
+        ?>
+            <form action="../config/procesarSesion.php" method="post">
+                <div class="contenedor-input">
+                    <span class="icono"><i class="ri-mail-fill"></i></span>
+                    <input type="text" name="usuario" id="usuario" required>
+                    <label for="#">Usuario</label>
+                </div>
+                <div class="contenedor-input">
+                    <span class="icono"><i class="ri-lock-fill"></i></span>
+                    <input type="password" name="password" id="password" required>
+                    <label for="#">Contraseña</label>
+                </div>
+                <div class="recordar">
+                    <label for="#"><input type="checkbox" name="checkbox" id="checkbox">Recordar Sesion</label>
+                    <a href="#">¿Olvide La Contraseña?</a>
+                </div>
+                <button type="submit" class="btn">Iniciar Sesion</button>
+                <div class="registrar">
+                    <p>¿No tienes Cuenta? <a href="#" class="registrar-link">Registrarse</a></p>
+                </div>
+            </form>
+        </div>
 
-    // Consulta para verificar las credenciales en la base de datos
-    $sql = "SELECT * FROM usuarios WHERE usuario = '$usuario' AND clave = '$clave'";
-    $result = $link->query($sql);
+        <div class="contenedor-form registrar">
+            <h2>Registrarse</h2>
+            <form action="#">
+                <div class="contenedor-input">
+                    <span class="icono"><i class="ri-user-fill"></i></span>
+                    <input type="text" name="text" id="text" required>
+                    <label for="#">Nombre de Usuario</label>
+                </div>
 
-    if ($result->num_rows > 0) {
-        // Iniciar sesión si las credenciales son correctas
-        $_SESSION["usuario"] = $usuario;
-
-        // Redireccionar al usuario a la página principal del proyecto
-        header("Location: ../views/home.php");
-        exit();
-    } else {
-        // Mensaje de error si las credenciales son incorrectas
-        header("Location: ../sesion.php?error=1"); // Redirigir con un parámetro GET indicando el error
-        exit();
-    }
-
-    // Cerrar la conexión
-    $link->close();
-}
-?>
+                <div class="contenedor-input">
+                    <span class="icono"><i class="ri-mail-fill"></i></span>
+                    <input type="email" name="email" id="email" required>
+                    <label for="#">Email</label>
+                </div>
+                <div class="contenedor-input">
+                    <span class="icono"><i class="ri-lock-fill"></i></span>
+                    <input type="password" name="password" id="password" required>
+                    <label for="#">Contraseña</label>
+                </div>
+                <div class="recordar">
+                    <label for="#"><input type="checkbox" name="checkbox" id="checkbox">
+                    Acepto los Terminos y Condiciones
+                    </label>
+                </div>
+                <button type="submit" class="btn">Registrarme</button>
+                <div class="registrar">
+                    <p>¿Tienes una Cuenta? <a href="#" class="login-link">Iniciar Sesion</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="../app.js"></script>
+</body>
+</html>
