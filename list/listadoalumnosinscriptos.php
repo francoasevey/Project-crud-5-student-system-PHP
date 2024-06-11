@@ -41,7 +41,7 @@
                       <option value="">Selecciona una Materia</option>
                       <?php foreach ($resultado as $examen) : ?>
                         <option value="<?php echo $examen['id_mesa']; ?>" <?php
-                        if (isset($_GET['mesas_examen']) && $_GET['mesas_examen'] == $examen['id_mesa']) echo 'selected';
+                                                                          if (isset($_GET['mesas_examen']) && $_GET['mesas_examen'] == $examen['id_mesa']) echo 'selected';
                                                                           ?>>
                           <?php echo $examen['materia']; ?>
                         </option>
@@ -66,7 +66,7 @@
                         <?php foreach ($profesores as $profesor) : ?>
                           <?php if (!empty($profesor)) : ?>
                             <option value="<?php echo $tribunal['id_mesa']; ?>" <?php
-                          if (isset($_GET['mesas_examen']) && $_GET['mesas_examen'] == $tribunal['id_mesa']) echo 'selected';
+                                                                                if (isset($_GET['mesas_examen']) && $_GET['mesas_examen'] == $tribunal['id_mesa']) echo 'selected';
                                                                                 ?>>
                               <?php echo $profesor; ?>
                             </option>
@@ -130,56 +130,56 @@
             </tr>
           </thead>
           <tbody>
-          <?php
-include '../config/db-connection.php';
+            <?php
+            include '../config/db-connection.php';
 
 
 
-$consulta = "SELECT i.id_inscripcion, a.nombre AS nombre_alumno, a.apellido AS apellido_alumno, a.dni AS dni_alumno, a.email AS email_alumno, a.telefono AS telefono_alumno,
+            $consulta = "SELECT i.id_inscripcion, a.nombre AS nombre_alumno, a.apellido AS apellido_alumno, a.dni AS dni_alumno, a.email AS email_alumno, a.telefono AS telefono_alumno,
        i.fecha_inscripcion, i.asistencia, i.nota,
        me.materia, me.profesor_titular, me.profesor_vocal1, me.profesor_vocal2
 FROM inscripciones i
 INNER JOIN alumnos a ON i.id_alumno = a.id_alumno
 INNER JOIN mesas_examen me ON i.id_mesa = me.id_mesa";
 
-if (!($resultado = mysqli_query($link, $consulta))) {
-    echo "<p>Error: La consulta SQL tiene un problema, verificar.</p> <br>";
-    echo "<p>$consulta</p>";
-    exit();
-}
+            if (!($resultado = mysqli_query($link, $consulta))) {
+              echo "<p>Error: La consulta SQL tiene un problema, verificar.</p> <br>";
+              echo "<p>$consulta</p>";
+              exit();
+            }
 
-while ($row = mysqli_fetch_row($resultado)) {
-    echo "<tr>";
-    echo "<td>$row[0]</td>"; // ID de la inscripción
-    echo "<td>$row[1]</td>"; // Nombre del alumno
-    echo "<td>$row[2]</td>"; // Apellido del alumno
-    echo "<td>$row[6]</td>"; // Fecha de inscripción
-    echo "<td>$row[7]</td>"; // Asistencia
-    echo "<td>$row[8]</td>"; // Nota
-    echo "<td>$row[9]</td>"; // Materia
-    echo "<td>$row[10]</td>"; // Profesor titular
-    echo "<td>$row[11]</td>"; // Profesor vocal 1
-    echo "<td>$row[12]</td>"; // Profesor vocal 2
-    echo "<td>
+            while ($row = mysqli_fetch_row($resultado)) {
+              echo "<tr>";
+              echo "<td>$row[0]</td>";
+              echo "<td>$row[1]</td>";
+              echo "<td>$row[2]</td>";
+              echo "<td>$row[6]</td>";
+              echo "<td>$row[7]</td>";
+              echo "<td>$row[8]</td>";
+              echo "<td>$row[9]</td>";
+              echo "<td>$row[10]</td>";
+              echo "<td>$row[11]</td>";
+              echo "<td>$row[12]</td>";
+              echo "<td>
             <form method='post' action='../delete/eliminarinscripcion.php'>
                 <input type='hidden' name='id' value='$row[0]'>
                 <button type='submit' class='btn btn-danger'>Eliminar</button>
             </form>
           </td>";
-    echo "<td>
+              echo "<td>
             <form method='post' action='../edit/editarinscripcion.php'>
                 <input type='hidden' name='id' value='$row[0]'>
                 <button type='submit' class='btn btn-warning'>Modificar</button>
             </form>
           </td>";
-    echo "</tr>";
-}
+              echo "</tr>";
+            }
 
 
-mysqli_free_result($resultado);
+            mysqli_free_result($resultado);
 
 
-?>
+            ?>
 
           </tbody>
         </table>
