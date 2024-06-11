@@ -26,57 +26,9 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="listadosDropdown">
                   <a class="dropdown-item" href="listadomesashabilitadas.php">Mesas de Exámenes Habilitadas</a>
-                  <form method="GET" class="mr-2">
-                    <select name="mesas_examen" class="form-control" onchange="this.form.submit()">
-                      <?php
-                      include '../config/db-connection.php';
-
-                      $consulta = "SELECT * FROM mesas_examen";
-                      if (!($resultado = mysqli_query($link, $consulta))) {
-                        echo "<p>Error: La consulta SQL tiene un problema, verificar.</p> <br>";
-                        echo "<p>$consulta</p>";
-                        exit();
-                      }
-                      ?>
-                      <option value="">Selecciona una Materia</option>
-                      <?php foreach ($resultado as $examen) : ?>
-                        <option value="<?php echo $examen['id_mesa']; ?>" 
-                        <?php
-                        if (isset($_GET['mesas_examen']) && $_GET['mesas_examen'] == $examen['id_mesa']) echo 'selected'; 
-                        ?>>
-                        <?php echo $examen['materia']; ?>
-                        </option>
-                      <?php endforeach; ?>
-                    </select>
-                  </form>
-                  <form method="GET" class="mr-2">
-                    <select name="mesas_examen" class="form-control" onchange="this.form.submit()">
-                      <?php
-                      include '../config/db-connection.php';
-
-                      $consulta = "SELECT * FROM mesas_examen";
-                      if (!($resultado = mysqli_query($link, $consulta))) {
-                        echo "<p>Error: La consulta SQL tiene un problema, verificar.</p> <br>";
-                        echo "<p>$consulta</p>";
-                        exit();
-                      }
-                      ?>
-                      <option value="">Selecciona Profesores</option>
-                      <?php foreach ($resultado as $tribunal) : ?>
-                        <?php $profesores = array($tribunal['profesor_titular'], $tribunal['profesor_vocal1'], $tribunal['profesor_vocal2']); ?>
-                        <?php foreach ($profesores as $profesor) : ?>
-                          <?php if (!empty($profesor)) : ?>
-                            <option value="<?php echo $tribunal['id_mesa']; ?>" 
-                            <?php
-                            if (isset($_GET['mesas_examen']) && $_GET['mesas_examen'] == $tribunal['id_mesa']) echo 'selected'; 
-                            ?>>
-                            <?php echo $profesor; ?>
-                            </option>
-                          <?php endif; ?>
-                        <?php endforeach; ?>
-                      <?php endforeach; ?>
-                    </select>
-                  </form>
+                  <a class="dropdown-item" href="../list/listadoalumnosinscriptos.php">Listado de inscripciones</a>
+                  <a class="dropdown-item" href="../list/filtradomaterias.php">Filtrado por Materias</a>
+                  <a class="dropdown-item" href="../list/filtradoprofesores.php">Filtrado por Profesores</a>
                   <a class="dropdown-item" href="home.php">Listado de Alumnos</a>
                   <a class="dropdown-item" href="/list/listaexamenes.php">Listar Mesas de Examen con tribunales</a>
                 </div>

@@ -17,6 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
     echo "El alumno ha sido eliminada de la base de datos.";
     echo "</div>";
     mysqli_close($link);
+    header("Location: ../views/home.php");
+    exit();
 } else {
     echo "<div class='alert alert-warning' role='alert'>";
     echo "No se han recibido datos del formulario.";

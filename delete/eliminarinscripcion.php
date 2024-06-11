@@ -18,7 +18,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
     echo "</div>";
     mysqli_close($link);
 
-    // Redireccionar a una página específica después de eliminar el registro
     header("Location: ../list/listadoalumnosinscriptos.php");
     exit();
 } else {
