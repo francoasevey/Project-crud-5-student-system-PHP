@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Listar Alumnos por Materia</title>
+  <title>Listar Alumnos por Profesores</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
@@ -34,7 +34,7 @@
 <body>
 
   <div class="container table-container">
-    <h2 class="text-center">Listar Alumnos por Materia</h2>
+    <h2 class="text-center">Listar Alumnos por Profesores</h2>
     <form method="post" action="busqueda.php" class="form-inline justify-content-center mb-4">
       <input class="form-control mr-sm-2 w-25" type="search" placeholder="Buscar por nombre o DNI" aria-label="Buscar" name="buscar">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
@@ -48,23 +48,27 @@
         <button type="submit" class="btn btn-info">Deportes</button>
       </form>
       <form method="GET" class="mr-2">
-        <select name="mesas_examen" class="form-control" onchange="this.form.submit()">
+        <select name="profesor" class="form-control" onchange="this.form.submit()">
           <?php
           include '../config/db-connection.php';
 
-          $consulta = "SELECT * FROM mesas_examen";
+          $consulta = "SELECT DISTINCT profesor_titular FROM mesas_examen WHERE profesor_titular IS NOT NULL
+                       UNION
+                       SELECT DISTINCT profesor_vocal1 FROM mesas_examen WHERE profesor_vocal1 IS NOT NULL
+                       UNION
+                       SELECT DISTINCT profesor_vocal2 FROM mesas_examen WHERE profesor_vocal2 IS NOT NULL";
+
           if (!($resultado = mysqli_query($link, $consulta))) {
             echo "<p>Error: La consulta SQL tiene un problema, verificar.</p> <br>";
             echo "<p>$consulta</p>";
             exit();
           }
           ?>
-          <option value="">Selecciona una Materia</option>
-          <?php foreach ($resultado as $examen) : ?>
-            <option value="<?php echo $examen['id_mesa']; ?>" <?php
-                                                              if (isset($_GET['mesas_examen']) && $_GET['mesas_examen'] == $examen['id_mesa']) echo 'selected';
-                                                              ?>>
-              <?php echo $examen['materia']; ?>
+          <option value="">Selecciona un Profesor</option>
+          <?php foreach ($resultado as $profesor) : ?>
+            <option value="<?php echo $profesor['profesor_titular']; ?>" 
+              <?php if (isset($_GET['profesor']) && $_GET['profesor'] == $profesor['profesor_titular']) echo 'selected'; ?>>
+              <?php echo $profesor['profesor_titular']; ?>
             </option>
           <?php endforeach; ?>
         </select>
@@ -101,8 +105,8 @@
       </thead>
       <tbody>
         <?php
-        if (isset($_GET['mesas_examen']) && $_GET['mesas_examen'] != '') {
-          $id_realiza = $_GET['mesas_examen'];
+        if (isset($_GET['profesor']) && $_GET['profesor'] != '') {
+          $profesor_seleccionado = $_GET['profesor'];
 
           $db_host = "localhost";
           $db_user = "root";
@@ -124,7 +128,8 @@
        inscripciones.fecha_inscripcion, inscripciones.asistencia, inscripciones.nota
        FROM alumnos
        INNER JOIN inscripciones ON alumnos.id_alumno = inscripciones.id_alumno
-       WHERE inscripciones.id_mesa = $id_realiza";
+       INNER JOIN mesas_examen ON inscripciones.id_mesa = mesas_examen.id_mesa
+       WHERE mesas_examen.profesor_titular = '$profesor_seleccionado' OR mesas_examen.profesor_vocal1 = '$profesor_seleccionado' OR mesas_examen.profesor_vocal2 = '$profesor_seleccionado'";
 
           if (!($resultado = mysqli_query($link, $consulta))) {
             echo "<p>Error: La consulta SQL tiene un problema, verificar.</p> <br>";
@@ -146,13 +151,13 @@
               echo "</tr>";
             }
           } else {
-            echo '<tr><td colspan="8" class="text-center">No hay alumnos inscritos en esta materia.</td></tr>';
+            echo '<tr><td colspan="8" class="text-center">No hay alumnos inscritos en las mesas de examen de este profesor.</td></tr>';
           }
 
           mysqli_free_result($resultado);
           mysqli_close($link);
         } else {
-          echo '<tr><td colspan="8" class="text-center">Selecciona una materia para ver los alumnos inscritos.</td></tr>';
+          echo '<tr><td colspan="8" class="text-center">Selecciona un profesor para ver los alumnos inscritos en sus mesas de examen.</td></tr>';
         }
         ?>
       </tbody>

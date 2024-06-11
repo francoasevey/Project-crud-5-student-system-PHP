@@ -41,7 +41,7 @@
                       <option value="">Selecciona una Materia</option>
                       <?php foreach ($resultado as $examen) : ?>
                         <option value="<?php echo $examen['id_mesa']; ?>" <?php
-                                                                          if (isset($_GET['mesas_examen']) && $_GET['mesas_examen'] == $examen['id_mesa']) echo 'selected';
+                        if (isset($_GET['mesas_examen']) && $_GET['mesas_examen'] == $examen['id_mesa']) echo 'selected';
                                                                           ?>>
                           <?php echo $examen['materia']; ?>
                         </option>
@@ -66,7 +66,7 @@
                         <?php foreach ($profesores as $profesor) : ?>
                           <?php if (!empty($profesor)) : ?>
                             <option value="<?php echo $tribunal['id_mesa']; ?>" <?php
-                                                                                if (isset($_GET['mesas_examen']) && $_GET['mesas_examen'] == $tribunal['id_mesa']) echo 'selected';
+                          if (isset($_GET['mesas_examen']) && $_GET['mesas_examen'] == $tribunal['id_mesa']) echo 'selected';
                                                                                 ?>>
                               <?php echo $profesor; ?>
                             </option>
@@ -89,8 +89,14 @@
                 </div>
               </li>
               <li class="nav-item">
-                <form class="form-inline my-2 my-lg-0">
-                  <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
+                <form method="post" action="../views/busqueda.php" class="form-inline my-2 my-lg-0">
+                  <input class="form-control mr-sm-2" type="search" placeholder="Buscar" name="buscar" aria-label="Buscar">
+                  <!--<select class="form-control mr-sm-2" name="filtro">
+                  <option value="nombre_persona">Nombre</option>
+                  <option value="dni">DNI</option>
+                  <option value="nombre_deporte">Materia</option>
+                  <option value="nota">Nota</option>
+                </select>-->
                   <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
                 </form>
               </li>
