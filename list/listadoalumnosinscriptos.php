@@ -25,7 +25,7 @@
                   Listados
                 </a>
                 <div class="dropdown-menu" aria-labelledby="listadosDropdown">
-                  <a class="dropdown-item" href="listadomesashabilitadas.php">Mesas de Exámenes Habilitadas</a>
+                  <a class="dropdown-item" href="../list/listadomesashabilitadas.php">Mesas de Exámenes Habilitadas</a>
                   <form method="GET" class="mr-2">
                     <select name="mesas_examen" class="form-control" onchange="this.form.submit()">
                       <?php
@@ -40,11 +40,10 @@
                       ?>
                       <option value="">Selecciona una Materia</option>
                       <?php foreach ($resultado as $examen) : ?>
-                        <option value="<?php echo $examen['id_mesa']; ?>" 
-                        <?php
-                        if (isset($_GET['mesas_examen']) && $_GET['mesas_examen'] == $examen['id_mesa']) echo 'selected'; 
-                        ?>>
-                        <?php echo $examen['materia']; ?>
+                        <option value="<?php echo $examen['id_mesa']; ?>" <?php
+                        if (isset($_GET['mesas_examen']) && $_GET['mesas_examen'] == $examen['id_mesa']) echo 'selected';
+                                                                          ?>>
+                          <?php echo $examen['materia']; ?>
                         </option>
                       <?php endforeach; ?>
                     </select>
@@ -66,11 +65,10 @@
                         <?php $profesores = array($tribunal['profesor_titular'], $tribunal['profesor_vocal1'], $tribunal['profesor_vocal2']); ?>
                         <?php foreach ($profesores as $profesor) : ?>
                           <?php if (!empty($profesor)) : ?>
-                            <option value="<?php echo $tribunal['id_mesa']; ?>" 
-                            <?php
-                            if (isset($_GET['mesas_examen']) && $_GET['mesas_examen'] == $tribunal['id_mesa']) echo 'selected'; 
-                            ?>>
-                            <?php echo $profesor; ?>
+                            <option value="<?php echo $tribunal['id_mesa']; ?>" <?php
+                          if (isset($_GET['mesas_examen']) && $_GET['mesas_examen'] == $tribunal['id_mesa']) echo 'selected';
+                                                                                ?>>
+                              <?php echo $profesor; ?>
                             </option>
                           <?php endif; ?>
                         <?php endforeach; ?>
@@ -78,7 +76,7 @@
                     </select>
                   </form>
                   <a class="dropdown-item" href="home.php">Listado de Alumnos</a>
-                  <a class="dropdown-item" href="/list/listaexamenes.php">Listar Mesas de Examen con tribunales</a>
+                  <a class="dropdown-item" href="../list/listadoalumnosporexamen.php">Listar Mesas de Examen con tribunales</a>
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -91,8 +89,14 @@
                 </div>
               </li>
               <li class="nav-item">
-                <form class="form-inline my-2 my-lg-0">
-                  <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
+                <form method="post" action="../views/busqueda.php" class="form-inline my-2 my-lg-0">
+                  <input class="form-control mr-sm-2" type="search" placeholder="Buscar" name="buscar" aria-label="Buscar">
+                  <!--<select class="form-control mr-sm-2" name="filtro">
+                  <option value="nombre_persona">Nombre</option>
+                  <option value="dni">DNI</option>
+                  <option value="nombre_deporte">Materia</option>
+                  <option value="nota">Nota</option>
+                </select>-->
                   <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
                 </form>
               </li>
@@ -107,29 +111,36 @@
 
     <div class="container content-container">
       <div class="table-container">
-        <h2 class="text-center">Listado de Mesas con Tribunales</h2>
+        <h2 class="text-center">Listar Alumnos Inscritos en la Materia</h2>
         <table class="table table-bordered table-hover">
           <thead class="thead-dark">
             <tr>
               <th>ID</th>
-              <th>Fecha</th>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Fecha de Inscripción</th>
+              <th>Asistencia</th>
+              <th>Nota</th>
               <th>Materia</th>
-              <th>Tipo</th>
-              <th>Profesor Titular</th>
-              <th>Profesor Vocal 1</th>
-              <th>Profesor Vocal 2</th>
-              <th>Total Alumnos</th>
+              <th>profesor titular</th>
+              <th>profesor vocal 1</th>
+              <th>profesor vocal 2</th>
+              <th>Eliminar</th>
+              <th>Modificar</th>
             </tr>
           </thead>
           <tbody>
           <?php
 include '../config/db-connection.php';
 
-$consulta = "SELECT m.id_mesa, m.fecha, m.materia, m.tipo, m.profesor_titular, m.profesor_vocal1, m.profesor_vocal2,
-             COUNT(i.id_alumno) AS total_alumnos
-             FROM mesas_examen m
-             LEFT JOIN inscripciones i ON m.id_mesa = i.id_mesa
-             GROUP BY m.id_mesa";
+
+
+$consulta = "SELECT i.id_inscripcion, a.nombre AS nombre_alumno, a.apellido AS apellido_alumno, a.dni AS dni_alumno, a.email AS email_alumno, a.telefono AS telefono_alumno,
+       i.fecha_inscripcion, i.asistencia, i.nota,
+       me.materia, me.profesor_titular, me.profesor_vocal1, me.profesor_vocal2
+FROM inscripciones i
+INNER JOIN alumnos a ON i.id_alumno = a.id_alumno
+INNER JOIN mesas_examen me ON i.id_mesa = me.id_mesa";
 
 if (!($resultado = mysqli_query($link, $consulta))) {
     echo "<p>Error: La consulta SQL tiene un problema, verificar.</p> <br>";
@@ -137,20 +148,37 @@ if (!($resultado = mysqli_query($link, $consulta))) {
     exit();
 }
 
-while ($row = mysqli_fetch_assoc($resultado)) {
+while ($row = mysqli_fetch_row($resultado)) {
     echo "<tr>";
-    echo "<td>{$row['id_mesa']}</td>";
-    echo "<td>{$row['fecha']}</td>";
-    echo "<td>{$row['materia']}</td>";
-    echo "<td>{$row['tipo']}</td>";
-    echo "<td>{$row['profesor_titular']}</td>";
-    echo "<td>{$row['profesor_vocal1']}</td>";
-    echo "<td>{$row['profesor_vocal2']}</td>";
-    echo "<td>{$row['total_alumnos']}</td>";
+    echo "<td>$row[0]</td>"; // ID de la inscripción
+    echo "<td>$row[1]</td>"; // Nombre del alumno
+    echo "<td>$row[2]</td>"; // Apellido del alumno
+    echo "<td>$row[6]</td>"; // Fecha de inscripción
+    echo "<td>$row[7]</td>"; // Asistencia
+    echo "<td>$row[8]</td>"; // Nota
+    echo "<td>$row[9]</td>"; // Materia
+    echo "<td>$row[10]</td>"; // Profesor titular
+    echo "<td>$row[11]</td>"; // Profesor vocal 1
+    echo "<td>$row[12]</td>"; // Profesor vocal 2
+    echo "<td>
+            <form method='post' action='../delete/eliminarinscripcion.php'>
+                <input type='hidden' name='id' value='$row[0]'>
+                <button type='submit' class='btn btn-danger'>Eliminar</button>
+            </form>
+          </td>";
+    echo "<td>
+            <form method='post' action='../edit/editarinscripcion.php'>
+                <input type='hidden' name='id' value='$row[0]'>
+                <button type='submit' class='btn btn-warning'>Modificar</button>
+            </form>
+          </td>";
     echo "</tr>";
 }
 
+
 mysqli_free_result($resultado);
+
+
 ?>
 
           </tbody>
