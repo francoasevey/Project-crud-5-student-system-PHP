@@ -25,7 +25,7 @@
                   Listados
                 </a>
                 <div class="dropdown-menu" aria-labelledby="listadosDropdown">
-                  <a class="dropdown-item" href="../list/listadomesashabilitadas.php">Mesas de Exámenes Habilitadas</a>
+                  <a class="dropdown-item" href="listadomesashabilitadas.php">Mesas de Exámenes Habilitadas</a>
                   <form method="GET" class="mr-2">
                     <select name="mesas_examen" class="form-control" onchange="this.form.submit()">
                       <?php
@@ -76,7 +76,7 @@
                     </select>
                   </form>
                   <a class="dropdown-item" href="home.php">Listado de Alumnos</a>
-                  <a class="dropdown-item" href="../list/listadoalumnosporexamen.php">Listar Mesas de Examen con tribunales</a>
+                  <a class="dropdown-item" href="/list/listaexamenes.php">Listar Mesas de Examen con tribunales</a>
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -105,59 +105,55 @@
 
     <div class="container content-container">
       <div class="table-container">
-        <h2 class="text-center">Listar Alumnos</h2>
-        <table class="table table-bordered table-hover">
-          <thead class="thead-dark">
-            <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Apellido</th>
-              <th>DNI</th>
-              <th>Email</th>
-              <th>Telefono</th>
-              <th>Eliminar</th>
-              <th>Modificar</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-            include '../config/db-connection.php';
+        <h2 class="text-center">Mesas de Exámenes Habilitadas</h2>
+        <?php
+        include '../config/db-connection.php';
 
-            $consulta = "SELECT * FROM alumnos";
-            if (!($resultado = mysqli_query($link, $consulta))) {
-              echo "<p>Error: La consulta SQL tiene un problema, verificar.</p> <br>";
-              echo "<p>$consulta</p>";
-              exit();
-            }
+        $consulta = "SELECT m.id_mesa, m.fecha, m.materia, m.tipo, m.profesor_titular, m.profesor_vocal1, m.profesor_vocal2,
+                     COUNT(i.id_alumno) AS total_alumnos
+                     FROM mesas_examen m
+                     LEFT JOIN inscripciones i ON m.id_mesa = i.id_mesa
+                     GROUP BY m.id_mesa";
 
-            while ($row = mysqli_fetch_row($resultado)) {
-              echo "<tr>";
-              echo "<td>$row[0]</td>";
-              echo "<td>$row[1]</td>";
-              echo "<td>$row[2]</td>";
-              echo "<td>$row[3]</td>";
-              echo "<td>$row[4]</td>";
-              echo "<td>$row[5]</td>";
+        if (!($resultado = mysqli_query($link, $consulta))) {
+          echo "<p>Error: La consulta SQL tiene un problema, verificar.</p> <br>";
+          echo "<p>$consulta</p>";
+          exit();
+        }
 
-              echo "<td>
-                      <form method='post' action='../delete/eliminaralumno.php'>
-                      <input type='hidden' name='id' value='$row[0]'>
-                      <button type='submit' class='btn btn-danger'>Eliminar</button>
-                      </form>
-                      </td>";
-              echo "<td>
-                      <form method='post' action='../edit/editaralumno.php'>
-                      <input type='hidden' name='id' value='$row[0]'>
-                      <button type='submit' class='btn btn-warning'>Modificar</button>
-                      </form>
-                      </td>";
-              echo "</tr>";
-            }
+        echo "<table class='table table-bordered table-hover'>";
+        echo "<thead class='thead-dark'>";
+        echo "<tr>";
+        echo "<th>ID Mesa</th>";
+        echo "<th>Fecha</th>";
+        echo "<th>Materia</th>";
+        echo "<th>Tipo</th>";
+        echo "<th>Profesor Titular</th>";
+        echo "<th>Profesor Vocal 1</th>";
+        echo "<th>Profesor Vocal 2</th>";
+        echo "<th>Total Alumnos</th>";
+        echo "</tr>";
+        echo "</thead>";
+        echo "<tbody>";
 
-            mysqli_free_result($resultado);
-            ?>
-          </tbody>
-        </table>
+        while ($row = mysqli_fetch_row($resultado)) {
+          echo "<tr>";
+          echo "<td>$row[0]</td>";
+          echo "<td>$row[1]</td>";
+          echo "<td>$row[2]</td>";
+          echo "<td>$row[3]</td>";
+          echo "<td>$row[4]</td>";
+          echo "<td>$row[5]</td>";
+          echo "<td>$row[6]</td>";
+          echo "<td>$row[7]</td>";
+          echo "</tr>";
+        }
+
+        echo "</tbody>";
+        echo "</table>";
+
+        mysqli_free_result($resultado);
+        ?>
       </div>
     </div>
     <footer class="text-center">

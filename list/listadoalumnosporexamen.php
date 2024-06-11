@@ -25,7 +25,7 @@
                   Listados
                 </a>
                 <div class="dropdown-menu" aria-labelledby="listadosDropdown">
-                  <a class="dropdown-item" href="../list/listadomesashabilitadas.php">Mesas de Exámenes Habilitadas</a>
+                  <a class="dropdown-item" href="listadomesashabilitadas.php">Mesas de Exámenes Habilitadas</a>
                   <form method="GET" class="mr-2">
                     <select name="mesas_examen" class="form-control" onchange="this.form.submit()">
                       <?php
@@ -40,10 +40,11 @@
                       ?>
                       <option value="">Selecciona una Materia</option>
                       <?php foreach ($resultado as $examen) : ?>
-                        <option value="<?php echo $examen['id_mesa']; ?>" <?php
-                                                                          if (isset($_GET['mesas_examen']) && $_GET['mesas_examen'] == $examen['id_mesa']) echo 'selected';
-                                                                          ?>>
-                          <?php echo $examen['materia']; ?>
+                        <option value="<?php echo $examen['id_mesa']; ?>" 
+                        <?php
+                        if (isset($_GET['mesas_examen']) && $_GET['mesas_examen'] == $examen['id_mesa']) echo 'selected'; 
+                        ?>>
+                        <?php echo $examen['materia']; ?>
                         </option>
                       <?php endforeach; ?>
                     </select>
@@ -65,10 +66,11 @@
                         <?php $profesores = array($tribunal['profesor_titular'], $tribunal['profesor_vocal1'], $tribunal['profesor_vocal2']); ?>
                         <?php foreach ($profesores as $profesor) : ?>
                           <?php if (!empty($profesor)) : ?>
-                            <option value="<?php echo $tribunal['id_mesa']; ?>" <?php
-                                                                                if (isset($_GET['mesas_examen']) && $_GET['mesas_examen'] == $tribunal['id_mesa']) echo 'selected';
-                                                                                ?>>
-                              <?php echo $profesor; ?>
+                            <option value="<?php echo $tribunal['id_mesa']; ?>" 
+                            <?php
+                            if (isset($_GET['mesas_examen']) && $_GET['mesas_examen'] == $tribunal['id_mesa']) echo 'selected'; 
+                            ?>>
+                            <?php echo $profesor; ?>
                             </option>
                           <?php endif; ?>
                         <?php endforeach; ?>
@@ -76,7 +78,7 @@
                     </select>
                   </form>
                   <a class="dropdown-item" href="home.php">Listado de Alumnos</a>
-                  <a class="dropdown-item" href="../list/listadoalumnosporexamen.php">Listar Mesas de Examen con tribunales</a>
+                  <a class="dropdown-item" href="/list/listaexamenes.php">Listar Mesas de Examen con tribunales</a>
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -105,57 +107,52 @@
 
     <div class="container content-container">
       <div class="table-container">
-        <h2 class="text-center">Listar Alumnos</h2>
+        <h2 class="text-center">Mesas de Exámenes Habilitadas</h2>
         <table class="table table-bordered table-hover">
           <thead class="thead-dark">
             <tr>
               <th>ID</th>
-              <th>Nombre</th>
-              <th>Apellido</th>
-              <th>DNI</th>
-              <th>Email</th>
-              <th>Telefono</th>
-              <th>Eliminar</th>
-              <th>Modificar</th>
+              <th>Fecha</th>
+              <th>Materia</th>
+              <th>Tipo</th>
+              <th>Profesor Titular</th>
+              <th>Profesor Vocal 1</th>
+              <th>Profesor Vocal 2</th>
+              <th>Total Alumnos</th>
             </tr>
           </thead>
           <tbody>
-            <?php
-            include '../config/db-connection.php';
+          <?php
+include '../config/db-connection.php';
 
-            $consulta = "SELECT * FROM alumnos";
-            if (!($resultado = mysqli_query($link, $consulta))) {
-              echo "<p>Error: La consulta SQL tiene un problema, verificar.</p> <br>";
-              echo "<p>$consulta</p>";
-              exit();
-            }
+$consulta = "SELECT m.id_mesa, m.fecha, m.materia, m.tipo, m.profesor_titular, m.profesor_vocal1, m.profesor_vocal2,
+             COUNT(i.id_alumno) AS total_alumnos
+             FROM mesas_examen m
+             LEFT JOIN inscripciones i ON m.id_mesa = i.id_mesa
+             GROUP BY m.id_mesa";
 
-            while ($row = mysqli_fetch_row($resultado)) {
-              echo "<tr>";
-              echo "<td>$row[0]</td>";
-              echo "<td>$row[1]</td>";
-              echo "<td>$row[2]</td>";
-              echo "<td>$row[3]</td>";
-              echo "<td>$row[4]</td>";
-              echo "<td>$row[5]</td>";
+if (!($resultado = mysqli_query($link, $consulta))) {
+    echo "<p>Error: La consulta SQL tiene un problema, verificar.</p> <br>";
+    echo "<p>$consulta</p>";
+    exit();
+}
 
-              echo "<td>
-                      <form method='post' action='../delete/eliminaralumno.php'>
-                      <input type='hidden' name='id' value='$row[0]'>
-                      <button type='submit' class='btn btn-danger'>Eliminar</button>
-                      </form>
-                      </td>";
-              echo "<td>
-                      <form method='post' action='../edit/editaralumno.php'>
-                      <input type='hidden' name='id' value='$row[0]'>
-                      <button type='submit' class='btn btn-warning'>Modificar</button>
-                      </form>
-                      </td>";
-              echo "</tr>";
-            }
+while ($row = mysqli_fetch_assoc($resultado)) {
+    echo "<tr>";
+    echo "<td>{$row['id_mesa']}</td>";
+    echo "<td>{$row['fecha']}</td>";
+    echo "<td>{$row['materia']}</td>";
+    echo "<td>{$row['tipo']}</td>";
+    echo "<td>{$row['profesor_titular']}</td>";
+    echo "<td>{$row['profesor_vocal1']}</td>";
+    echo "<td>{$row['profesor_vocal2']}</td>";
+    echo "<td>{$row['total_alumnos']}</td>";
+    echo "</tr>";
+}
 
-            mysqli_free_result($resultado);
-            ?>
+mysqli_free_result($resultado);
+?>
+
           </tbody>
         </table>
       </div>
