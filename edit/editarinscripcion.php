@@ -44,11 +44,11 @@
         <?php
         include '../config/db-connection.php';
         include '../config/conexionAlumnos.php';
-        $db_host = "localhost"; 
+        /*$db_host = "localhost"; 
         $db_user = "root";
         $db_pass = "";
         $db_name = "sistemagestionexamenes";
-        $link = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
+        $link = mysqli_connect($db_host, $db_user, $db_pass, $db_name);*/
 
         if (!$link) {
             echo "Error: no se puede conectar a MYSQL." . PHP_EOL;
