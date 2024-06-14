@@ -45,41 +45,25 @@
         include '../config/db-connection.php';
         //include '../config/conexionAlumnos.php';
 
-        $consulta = "
-SELECT 
-    i.id_inscripcion,
-    a.nombre, 
-    a.apellido, 
-    a.dni,
-    a.email, 
-    a.telefono,
-    i.fecha_inscripcion, 
-    i.asistencia, 
-    i.nota, 
-    me.fecha, 
-    me.materia, 
-    me.tipo, 
-    me.profesor_titular, 
-    me.profesor_vocal1, 
-    me.profesor_vocal2
-FROM 
-    inscripciones i
-INNER JOIN 
-    alumnos a ON i.id_alumno = a.id_alumno
-INNER JOIN 
-    mesas_examen me ON i.id_mesa = me.id_mesa;
-";
+        $db_host = "localhost";
+        $db_user = "root";
+        $db_pass = "";
+        $db_name = "sistemagestionexamenes";
 
-        if (!($resultado = mysqli_query($link, $consulta))) {
+        $link = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
+
+        if (!$link) {
           echo "<div class='alert alert-danger' role='alert'>";
-          echo "Error: La consulta SQL tiene un problema, verificar.<br>";
-          echo "$consulta";
+          echo "Error: no se puede conectar a MYSQL." . PHP_EOL;
+          echo "<br>";
+          echo "Error de depuración: " . mysqli_connect_errno() . PHP_EOL;
+          echo "<br>";
+          echo "Error de depuración: " . mysqli_connect_error() . PHP_EOL;
           echo "</div>";
           exit();
         }
-        $row = mysqli_fetch_row($resultado);
 
-
+        
 
 
 
@@ -124,7 +108,7 @@ INNER JOIN
           <div class="form-group row">
             <label for="fecha_inscripcion" class="col-sm-3 col-form-label">Fecha Inscripcion:</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" id="fecha_inscripcion" name="fecha_inscripcion" required value="<?php echo $row[6] ?>">
+              <input type="date" class="form-control" id="fecha_inscripcion" name="fecha_inscripcion" readonly value="<?php echo $row[6] ?>">
             </div>
           </div>
           <div class="form-group row">
