@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modificar Persona</title>
+  <title>Modificar inscripciones</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
@@ -72,8 +72,7 @@
         INNER JOIN 
         mesas_examen me ON i.id_mesa = me.id_mesa
         WHERE 
-        i.id_inscripcion='$formID';
-";
+        i.id_inscripcion='$formID'; ";
 
         if (!($resultado = mysqli_query($link, $consulta))) {
           echo "<div class='alert alert-danger' role='alert'>";
@@ -104,7 +103,7 @@
 
 
         ?>
-        <form method="post" action="editaralumnoproceso.php">
+        <form method="post" action="editarinscripcionproceso.php">
           <input type="hidden" name="id" value="<?php echo $id_inscripcion; ?>">
           <div class="form-group row">
             <label for="id" class="col-sm-3 col-form-label">ID:</label>
@@ -127,7 +126,7 @@
           <div class="form-group row">
             <label for="fecha_inscripcion" class="col-sm-3 col-form-label">Fecha Inscripcion:</label>
             <div class="col-sm-9">
-              <input type="date" class="form-control" id="fecha_inscripcion" name="fecha_inscripcion" readonly value="<?php echo $row[3] ?>">
+              <input type="date" class="form-control" id="fecha_inscripcion" name="fecha_inscripcion" required value="<?php echo $row[3] ?>">
             </div>
           </div>
           <div class="form-group row">
@@ -150,7 +149,7 @@
           <div class="form-group row">
             <label for="fecha_mesa" class="col-sm-3 col-form-label">Fecha Mesa:</label>
             <div class="col-sm-9">
-              <input type="date" class="form-control" id="fecha_mesa" name="fecha_mesa" readonly value="<?php echo $row[11] ?>">
+              <input type="date" class="form-control" id="fecha_mesa" name="fecha_mesa" required value="<?php echo $row[11] ?>">
             </div>
           </div>
 
