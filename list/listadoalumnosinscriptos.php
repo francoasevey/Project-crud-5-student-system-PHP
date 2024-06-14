@@ -108,6 +108,9 @@ INNER JOIN mesas_examen me ON i.id_mesa = me.id_mesa";
               echo "<td>$row[0]</td>"; // ID de la inscripción
               echo "<td>$row[1]</td>"; // Nombre del alumno
               echo "<td>$row[2]</td>"; // Apellido del alumno
+              /*echo "<td>$row[3]</td>"; // DNI del alumno
+              echo "<td>$row[4]</td>"; // Email del alumno
+              echo "<td>$row[5]</td>"; // Telefono del alumno*/
               echo "<td>$row[6]</td>"; // Fecha de inscripción
               echo "<td>$row[7]</td>"; // Asistencia
               echo "<td>$row[8]</td>"; // Nota
@@ -127,13 +130,19 @@ INNER JOIN mesas_examen me ON i.id_mesa = me.id_mesa";
               echo "<td>
             <form method='post' action='../edit/editarinscripcion.php'>
                 <input type='hidden' name='id' value='{$row[0]}'>
+                <input type='hidden' name='nombre_alumno' value='{$row[1]}'>
+                <input type='hidden' name='apellido_alumno' value='{$row[2]}'>
+                <input type='hidden' name='dni_alumno' value='{$row[3]}'>
+                <input type='hidden' name='email_alumno' value='{$row[4]}'>
+                <input type='hidden' name='telefono_alumno' value='{$row[5]}'>
+                <input type='hidden' name='fecha_inscripcion' value='{$row[6]}'>
+                <input type='hidden' name='asistencia' value='$row[7]'>
+                <input type='hidden' name='nota' value='$row[8]'>
                 <input type='hidden' name='materia' value='$row[9]'>
                 <input type='hidden' name='fecha' value='$row[10]'>
                 <input type='hidden' name='profesor_titular' value='$row[11]'>
                 <input type='hidden' name='profesor_vocal1' value='$row[12]'>
-                <input type='hidden' name='profesor_vocal2' value='$row[13]'>
-                <input type='hidden' name='nota' value='$row[8]'>
-                <input type='hidden' name='asistencia' value='$row[7]'>
+                <input type='hidden' name='profesor_vocal2' value='$row[13]'>   
                 <button type='submit' class='btn btn-warning'>Modificar</button>
             </form>
           </td>";
