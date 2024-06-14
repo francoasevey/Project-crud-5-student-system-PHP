@@ -45,6 +45,7 @@
         include '../config/db-connection.php';
         //include '../config/conexionAlumnos.php';
 
+        $formID = $_POST["id"];
         $db_host = "localhost";
         $db_user = "root";
         $db_pass = "";
@@ -63,7 +64,15 @@
           exit();
         }
 
-        
+        $consulta = "SELECT * FROM alumnos WHERE id_alumno='$formID'";
+        if (!($resultado = mysqli_query($link, $consulta))) {
+          echo "<div class='alert alert-danger' role='alert'>";
+          echo "Error: La consulta SQL tiene un problema, verificar.<br>";
+          echo "$consulta";
+          echo "</div>";
+          exit();
+        }
+        $row = mysqli_fetch_row($resultado);
 
 
 
