@@ -44,27 +44,10 @@
         <?php
         include '../config/db-connection.php';
         include '../config/conexionAlumnos.php';
-        /*$db_host = "localhost"; 
-        $db_user = "root";
-        $db_pass = "";
-        $db_name = "sistemagestionexamenes";
-        $link = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
-
-        if (!$link) {
-            echo "Error: no se puede conectar a MYSQL." . PHP_EOL;
-            echo "<br>";
-            echo "error de depuración: " . mysqli_connect_errno() . PHP_EOL;
-            echo "<br>";
-            echo "error de depuración: " . mysqli_connect_error() . PHP_EOL;
-            exit();
-        }*/
+        
 
 
         $materias = mysqli_query($link, "SELECT id_mesa, materia FROM mesas_examen");
-        //$fechamesa = mysqli_query($link, "SELECT id_mesa, fecha FROM mesas_examen");
-        $profesortitular = mysqli_query($link, "SELECT id_mesa, profesor_titular FROM mesas_examen");
-        $profesorvocal1 = mysqli_query($link, "SELECT id_mesa, profesor_vocal1 FROM mesas_examen");
-        $profesorvocal2 = mysqli_query($link, "SELECT id_mesa, profesor_vocal2 FROM mesas_examen");
 
         $id_inscripcion = $_POST['id'];
         $materia = $_POST['materia'];
@@ -85,24 +68,28 @@
               <input type="text" class="form-control" id="id" name="id" readonly value="<?php echo $row[0] ?>">
             </div>
           </div>
+
           <div class="form-group row">
             <label for="name" class="col-sm-3 col-form-label">Nombre:</label>
             <div class="col-sm-9">
               <input type="text" class="form-control" id="name" name="name" readonly value="<?php echo $row[1] ?>">
             </div>
           </div>
+
           <div class="form-group row">
             <label for="apellido" class="col-sm-3 col-form-label">Apellido:</label>
             <div class="col-sm-9">
               <input type="text" class="form-control" id="apellido" name="apellido" readonly value="<?php echo $row[2] ?>">
             </div>
           </div>
+
           <div class="form-group row">
             <label for="fecha_inscripcion" class="col-sm-3 col-form-label">Fecha Inscripcion:</label>
             <div class="col-sm-9">
               <input type="date" class="form-control" id="fecha_inscripcion" name="fecha_inscripcion" readonly value="<?php echo $row[6] ?>">
             </div>
           </div>
+
           <div class="form-group row">
             <label for="asistencia" class="col-sm-3 col-form-label">Asistencia:</label>
             <div class="col-sm-9">
@@ -121,64 +108,9 @@
           </div>
 
           <div class="form-group row">
-            <label for="materia" class="col-sm-3 col-form-label">Materia:</label>
-            <div class="col-sm-9">
-              <select class="form-control" id="materia" name="materia" required>
-                <option value="" disabled>Seleccione una Materia</option>
-                <?php while ($row = mysqli_fetch_assoc($materias)) : ?>
-                  <option value="<?php echo $row['materia']; ?>" <?php echo (isset($materia) && $row['materia'] == $materia) ? 'selected' : ''; ?>>
-                    <?php echo $row['materia']; ?>
-                  </option>
-                <?php endwhile; ?>
-              </select>
-            </div>
-          </div>
-          <div class="form-group row">
             <label for="fecha" class="col-sm-3 col-form-label">Fecha Mesa:</label>
             <div class="col-sm-9">
               <input type="date" class="form-control" id="fecha" name="fecha" readonly value="<?php echo $row[10] ?>">
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <label for="profesor_titular" class="col-sm-3 col-form-label">Profesor Titular:</label>
-            <div class="col-sm-9">
-              <select class="form-control" id="profesor_titular" name="profesor_titular" required>
-                <option value="" disabled>Seleccione una Profesor Titular</option>
-                <?php while ($row = mysqli_fetch_assoc($profesortitular)) : ?>
-                  <option value="<?php echo $row['profesor_titular']; ?>" <?php echo (isset($profesor1) && $row['profesor_titular'] == $profesor1) ? 'selected' : ''; ?>>
-                    <?php echo $row['profesor_titular']; ?>
-                  </option>
-                <?php endwhile; ?>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <label for="profesor_vocal1" class="col-sm-3 col-form-label">Profesor Vocal 1:</label>
-            <div class="col-sm-9">
-              <select class="form-control" id="profesor_vocal1" name="profesor_vocal1" required>
-                <option value="" disabled>Seleccione una Profesor Vocal 1</option>
-                <?php while ($row = mysqli_fetch_assoc($profesorvocal1)) : ?>
-                  <option value="<?php echo $row['profesor_vocal1']; ?>" <?php echo (isset($profesor2) && $row['profesor_vocal1'] == $profesor2) ? 'selected' : ''; ?>>
-                    <?php echo $row['profesor_vocal1']; ?>
-                  </option>
-                <?php endwhile; ?>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <label for="profesor_vocal2" class="col-sm-3 col-form-label">Profesor Vocal 2:</label>
-            <div class="col-sm-9">
-              <select class="form-control" id="profesor_vocal2" name="profesor_vocal2" required>
-                <option value="" disabled>Seleccione una Profesor vocal 2</option>
-                <?php while ($row = mysqli_fetch_assoc($profesorvocal2)) : ?>
-                  <option value="<?php echo $row['profesor_vocal2']; ?>" <?php echo (isset($profesor3) && $row['profesor_vocal2'] == $profesor3) ? 'selected' : ''; ?>>
-                    <?php echo $row['profesor_vocal2']; ?>
-                  </option>
-                <?php endwhile; ?>
-              </select>
             </div>
           </div>
 
