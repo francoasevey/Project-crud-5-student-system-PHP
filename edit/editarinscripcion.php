@@ -64,7 +64,17 @@
           exit();
         }
 
-        $consulta = "SELECT * FROM alumnos WHERE id_alumno='$formID'";
+        $consulta = " SELECT i.*, a.nombre AS nombre_alumno, a.apellido AS apellido_alumno, a.dni AS dni_alumno, a.email AS email_alumno, a.telefono AS telefono_alumno, me.fecha AS fecha_mesa, me.materia AS materia_mesa, me.tipo AS tipo_mesa, me.profesor_titular, me.profesor_vocal1, me.profesor_vocal2
+        FROM 
+        inscripciones i
+        INNER JOIN 
+        alumnos a ON i.id_alumno = a.id_alumno
+        INNER JOIN 
+        mesas_examen me ON i.id_mesa = me.id_mesa
+        WHERE 
+        i.id_inscripcion='$formID';
+";
+
         if (!($resultado = mysqli_query($link, $consulta))) {
           echo "<div class='alert alert-danger' role='alert'>";
           echo "Error: La consulta SQL tiene un problema, verificar.<br>";
@@ -105,27 +115,27 @@
           <div class="form-group row">
             <label for="name" class="col-sm-3 col-form-label">Nombre:</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" id="name" name="name" readonly value="<?php echo $row[1] ?>">
+              <input type="text" class="form-control" id="name" name="name" readonly value="<?php echo $row[6] ?>">
             </div>
           </div>
           <div class="form-group row">
             <label for="apellido" class="col-sm-3 col-form-label">Apellido:</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" id="apellido" name="apellido" readonly value="<?php echo $row[2] ?>">
+              <input type="text" class="form-control" id="apellido" name="apellido" readonly value="<?php echo $row[7] ?>">
             </div>
           </div>
           <div class="form-group row">
             <label for="fecha_inscripcion" class="col-sm-3 col-form-label">Fecha Inscripcion:</label>
             <div class="col-sm-9">
-              <input type="date" class="form-control" id="fecha_inscripcion" name="fecha_inscripcion" readonly value="<?php echo $row[6] ?>">
+              <input type="date" class="form-control" id="fecha_inscripcion" name="fecha_inscripcion" readonly value="<?php echo $row[3] ?>">
             </div>
           </div>
           <div class="form-group row">
             <label for="asistencia" class="col-sm-3 col-form-label">Asistencia:</label>
             <div class="col-sm-9">
               <select class="form-control" id="asistencia" name="asistencia" required>
-                <option value="Presente" <?php echo ($row[7] == 'Presente') ? 'selected' : ''; ?>>Presente</option>
-                <option value="Ausente" <?php echo ($row[7] == 'Ausente') ? 'selected' : ''; ?>>Ausente</option>
+                <option value="Presente" <?php echo ($row[4] == 'Presente') ? 'selected' : ''; ?>>Presente</option>
+                <option value="Ausente" <?php echo ($row[4] == 'Ausente') ? 'selected' : ''; ?>>Ausente</option>
               </select>
             </div>
           </div>
@@ -133,7 +143,14 @@
           <div class="form-group row">
             <label for="nota" class="col-sm-3 col-form-label">Nota:</label>
             <div class="col-sm-9">
-              <input type="number" class="form-control" id="nota" name="nota" required value="<?php echo $row[8] ?>">
+              <input type="number" class="form-control" id="nota" name="nota" required value="<?php echo $row[5] ?>">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="fecha_mesa" class="col-sm-3 col-form-label">Fecha Mesa:</label>
+            <div class="col-sm-9">
+              <input type="date" class="form-control" id="fecha_mesa" name="fecha_mesa" readonly value="<?php echo $row[11] ?>">
             </div>
           </div>
 
@@ -148,12 +165,6 @@
                   </option>
                 <?php endwhile; ?>
               </select>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="fecha" class="col-sm-3 col-form-label">Fecha Mesa:</label>
-            <div class="col-sm-9">
-              <input type="date" class="form-control" id="fecha" name="fecha" readonly value="<?php echo $row[10] ?>">
             </div>
           </div>
 
