@@ -42,9 +42,6 @@
                 $asistencia = $_POST['asistencia'];
                 $nota = $_POST['nota'];
                 $id_mesa = $_POST['materia'];
-                $profesor_titular = $_POST['profesor_titular'];
-                $profesor_vocal1 = $_POST['profesor_vocal1'];
-                $profesor_vocal2 = $_POST['profesor_vocal2'];
 
                 // Conexión a la base de datos
                 $db_host = "localhost"; 
@@ -65,15 +62,7 @@
                 }
 
                 // Actualizar la inscripción en la base de datos
-                $consulta = "UPDATE inscripciones 
-                             SET fecha_inscripcion='$fecha_inscripcion', 
-                                 asistencia='$asistencia', 
-                                 nota='$nota', 
-                                 id_mesa='$id_mesa', 
-                                 profesor_titular='$profesor_titular', 
-                                 profesor_vocal1='$profesor_vocal1', 
-                                 profesor_vocal2='$profesor_vocal2' 
-                             WHERE id_inscripcion='$id_inscripcion'";
+                $consulta = "UPDATE inscripciones SET fecha_inscripcion='$fecha_inscripcion', asistencia='$asistencia', nota='$nota', id_mesa='$id_mesa' WHERE id_inscripcion='$id_inscripcion'";
                 
                 if (!mysqli_query($link, $consulta)){
                     echo "<div class='alert alert-danger' role='alert'>";
@@ -94,9 +83,6 @@
                                 <th>Asistencia</th>
                                 <th>Nota</th>
                                 <th>Materia</th>
-                                <th>Profesor Titular</th>
-                                <th>Profesor Vocal 1</th>
-                                <th>Profesor Vocal 2</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -105,9 +91,6 @@
                                 <td>$asistencia</td>
                                 <td>$nota</td>
                                 <td>$id_mesa</td>
-                                <td>$profesor_titular</td>
-                                <td>$profesor_vocal1</td>
-                                <td>$profesor_vocal2</td>
                             </tr>
                         </tbody>
                     </table>";
