@@ -91,11 +91,11 @@
 
 
             $consulta = "SELECT i.id_inscripcion, a.nombre AS nombre_alumno, a.apellido AS apellido_alumno, a.dni AS dni_alumno, a.email AS email_alumno, a.telefono AS telefono_alumno,
-       i.fecha_inscripcion, i.asistencia, i.nota,
-       me.materia, me.fecha, me.profesor_titular, me.profesor_vocal1, me.profesor_vocal2
-FROM inscripciones i
-INNER JOIN alumnos a ON i.id_alumno = a.id_alumno
-INNER JOIN mesas_examen me ON i.id_mesa = me.id_mesa";
+            i.fecha_inscripcion, i.asistencia, i.nota,
+            me.materia, me.fecha, me.profesor_titular, me.profesor_vocal1, me.profesor_vocal2
+            FROM inscripciones i
+            INNER JOIN alumnos a ON i.id_alumno = a.id_alumno
+            INNER JOIN mesas_examen me ON i.id_mesa = me.id_mesa";
 
             if (!($resultado = mysqli_query($link, $consulta))) {
               echo "<p>Error: La consulta SQL tiene un problema, verificar.</p> <br>";
