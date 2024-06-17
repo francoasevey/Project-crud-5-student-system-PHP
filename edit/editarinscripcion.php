@@ -132,16 +132,16 @@
                 <option value="Ausente" <?php echo ($row['asistencia'] == 'Ausente') ? 'selected' : ''; ?>>Ausente</option>
               </select>
             </div>
-            <div class="form-group col-md-6">
-              <label for="nota">Nota:</label>
-              <input type="number" class="form-control" id="nota" name="nota" value="<?php echo $row['nota']; ?>" required>
-            </div>
           </div>
 
           <div class="form-row">
+          <div class="form-group col-md-6">
+              <label for="nota">Nota:</label>
+              <input type="number" class="form-control" id="nota" name="nota" value="<?php echo $row['nota']; ?>" required>
+            </div>
             <div class="form-group col-md-6">
               <label for="fecha_mesa">Fecha Mesa:</label>
-              <input type="date" class="form-control" id="fecha_mesa" name="fecha_mesa" value="<?php echo $row['fecha_mesa']; ?>" required>
+              <input type="date" class="form-control" id="fecha_mesa" name="fecha_mesa" value="<?php echo $row['fecha_mesa']; ?>" readonly>
             </div>
             <!--<div class="form-group col-md-6">
               <label for="tipo_mesa">Tipo Mesa:</label>
@@ -150,6 +150,9 @@
                 <option value="libre" <?php echo ($row['tipo_mesa'] == 'libre') ? 'selected' : ''; ?>>Libre</option>
               </select>
             </div>-->
+          </div>
+
+          <div class="form-row">
             <div class="form-group col-md-6">
               <label for="materia">Materia:</label>
               <select class="form-control" id="materia" name="materia" required>
@@ -161,12 +164,9 @@
                 <?php endwhile; ?>
               </select>
             </div>
-          </div>
-
-          <div class="form-row">
             <div class="form-group col-md-6">
               <label for="profesor_titular">Profesor Titular:</label>
-              <select class="form-control" id="profesor_titular" name="profesor_titular" required>
+              <select class="form-control" id="profesor_titular" name="profesor_titular" readonly>
                 <option value="" disabled>Seleccione un Profesor Titular</option>
                 <?php while ($profesor = mysqli_fetch_assoc($profesortitular)) : ?>
                   <option value="<?php echo $profesor['profesor_titular']; ?>" <?php echo ($profesor['profesor_titular'] == $row['profesor_titular']) ? 'selected' : ''; ?>>
@@ -175,9 +175,12 @@
                 <?php endwhile; ?>
               </select>
             </div>
+          </div>
+
+          <div class="form-row">  
             <div class="form-group col-md-6">
               <label for="profesor_vocal1">Profesor Vocal 1:</label>
-              <select class="form-control" id="profesor_vocal1" name="profesor_vocal1" required>
+              <select class="form-control" id="profesor_vocal1" name="profesor_vocal1" readonly>
                 <option value="" disabled>Seleccione un Profesor Vocal 1</option>
                 <?php while ($profesor = mysqli_fetch_assoc($profesorvocal1)) : ?>
                   <option value="<?php echo $profesor['profesor_vocal1']; ?>" <?php echo ($profesor['profesor_vocal1'] == $row['profesor_vocal1']) ? 'selected' : ''; ?>>
@@ -186,12 +189,9 @@
                 <?php endwhile; ?>
               </select>
             </div>
-          </div>
-
-          <div class="form-row">
             <div class="form-group col-md-6">
               <label for="profesor_vocal2">Profesor Vocal 2:</label>
-              <select class="form-control" id="profesor_vocal2" name="profesor_vocal2" required>
+              <select class="form-control" id="profesor_vocal2" name="profesor_vocal2" readonly>
                 <option value="" disabled>Seleccione un Profesor Vocal 2</option>
                 <?php while ($profesor = mysqli_fetch_assoc($profesorvocal2)) : ?>
                   <option value="<?php echo $profesor['profesor_vocal2']; ?>" <?php echo ($profesor['profesor_vocal2'] == $row['profesor_vocal2']) ? 'selected' : ''; ?>>
@@ -202,13 +202,15 @@
             </div>
           </div>
 
-          <div class="form-group text-center">
-            <button type="submit" class="btn btn-primary">Procesar</button>
-          </div>
-          <div class="d-flex justify-content-center">
-            <form action="../views/home.php" class="mr-2">
-              <input type="submit" value="Volver al Listado" class="btn btn-secondary">
-            </form>
+          <div class="form-row">
+            <div class="form-group col-md-6 text-center">
+              <button type="submit" class="btn btn-primary">Procesar</button>
+            </div>
+            <div class="form-group col-md-6 text-center margin= 0">
+              <form action="../views/home.php" class="mr-2">
+                <input type="submit" value="Volver al Listado" class="btn btn-secondary">
+              </form>
+            </div>
           </div>
         </form>
       </div>
