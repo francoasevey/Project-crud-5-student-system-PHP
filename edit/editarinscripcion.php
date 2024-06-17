@@ -165,40 +165,19 @@
               </select>
             </div>
             <div class="form-group col-md-6">
-              <label for="profesor_titular">Profesor Titular:</label>
-              <select class="form-control" id="profesor_titular" name="profesor_titular" readonly>
-                <option value="" disabled>Seleccione un Profesor Titular</option>
-                <?php while ($profesor = mysqli_fetch_assoc($profesortitular)) : ?>
-                  <option value="<?php echo $profesor['profesor_titular']; ?>" <?php echo ($profesor['profesor_titular'] == $row['profesor_titular']) ? 'selected' : ''; ?>>
-                    <?php echo $profesor['profesor_titular']; ?>
-                  </option>
-                <?php endwhile; ?>
-              </select>
+              <label for="profesor_titular">profesor titular:</label>
+              <input type="text" class="form-control" id="profesor_titular" name="profesor_titular" value="<?php echo $row['profesor_titular']; ?>" readonly>
             </div>
           </div>
 
           <div class="form-row">  
-            <div class="form-group col-md-6">
+          <div class="form-group col-md-6">
               <label for="profesor_vocal1">Profesor Vocal 1:</label>
-              <select class="form-control" id="profesor_vocal1" name="profesor_vocal1" readonly>
-                <option value="" disabled>Seleccione un Profesor Vocal 1</option>
-                <?php while ($profesor = mysqli_fetch_assoc($profesorvocal1)) : ?>
-                  <option value="<?php echo $profesor['profesor_vocal1']; ?>" <?php echo ($profesor['profesor_vocal1'] == $row['profesor_vocal1']) ? 'selected' : ''; ?>>
-                    <?php echo $profesor['profesor_vocal1']; ?>
-                  </option>
-                <?php endwhile; ?>
-              </select>
+              <input type="text" class="form-control" id="profesor_vocal1" name="profesor_vocal1" value="<?php echo $row['profesor_vocal1']; ?>" readonly>
             </div>
             <div class="form-group col-md-6">
               <label for="profesor_vocal2">Profesor Vocal 2:</label>
-              <select class="form-control" id="profesor_vocal2" name="profesor_vocal2" readonly>
-                <option value="" disabled>Seleccione un Profesor Vocal 2</option>
-                <?php while ($profesor = mysqli_fetch_assoc($profesorvocal2)) : ?>
-                  <option value="<?php echo $profesor['profesor_vocal2']; ?>" <?php echo ($profesor['profesor_vocal2'] == $row['profesor_vocal2']) ? 'selected' : ''; ?>>
-                    <?php echo $profesor['profesor_vocal2']; ?>
-                  </option>
-                <?php endwhile; ?>
-              </select>
+              <input type="text" class="form-control" id="profesor_vocal2" name="profesor_vocal2" value="<?php echo $row['profesor_vocal2']; ?>" readonly>
             </div>
           </div>
 
