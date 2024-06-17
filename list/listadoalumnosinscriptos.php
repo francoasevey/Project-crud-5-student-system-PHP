@@ -73,9 +73,11 @@
               <th>Nombre</th>
               <th>Apellido</th>
               <th>Fecha de Inscripción</th>
+              <th>Condicion Alumno</th>
               <th>Asistencia</th>
               <th>Nota</th>
               <th>Materia</th>
+              <th>Tipo</th>
               <th>Fecha Mesa</th>
               <th>profesor titular</th>
               <th>profesor vocal 1</th>
@@ -91,8 +93,8 @@
 
 
             $consulta = "SELECT i.id_inscripcion, a.nombre AS nombre_alumno, a.apellido AS apellido_alumno, a.dni AS dni_alumno, a.email AS email_alumno, a.telefono AS telefono_alumno,
-            i.fecha_inscripcion, i.asistencia, i.nota,
-            me.materia, me.fecha, me.profesor_titular, me.profesor_vocal1, me.profesor_vocal2
+            i.fecha_inscripcion, i.condicion_alumno, i.asistencia, i.nota,
+            me.materia, me.tipo, me.fecha, me.profesor_titular, me.profesor_vocal1, me.profesor_vocal2
             FROM inscripciones i
             INNER JOIN alumnos a ON i.id_alumno = a.id_alumno
             INNER JOIN mesas_examen me ON i.id_mesa = me.id_mesa";
@@ -112,13 +114,15 @@
               echo "<td>$row[4]</td>"; // Email del alumno
               echo "<td>$row[5]</td>"; // Telefono del alumno*/
               echo "<td>$row[6]</td>"; // Fecha de inscripción
-              echo "<td>$row[7]</td>"; // Asistencia
-              echo "<td>$row[8]</td>"; // Nota
-              echo "<td>$row[9]</td>"; // Materia
-              echo "<td>$row[10]</td>"; // Fecha de la mesa de examen
-              echo "<td>$row[11]</td>"; // Profesor titular
-              echo "<td>$row[12]</td>"; // Profesor vocal 1
-              echo "<td>$row[13]</td>"; // Profesor vocal 2
+              echo "<td>$row[7]</td>"; // Condicion Alumno
+              echo "<td>$row[8]</td>"; // Asistencia
+              echo "<td>$row[9]</td>"; // Nota
+              echo "<td>$row[10]</td>"; // Materia
+              echo "<td>$row[11]</td>"; // Tipo
+              echo "<td>$row[12]</td>"; // Fecha de la mesa de examen
+              echo "<td>$row[13]</td>"; // Profesor titular
+              echo "<td>$row[14]</td>"; // Profesor vocal 1
+              echo "<td>$row[15]</td>"; // Profesor vocal 2
 
               echo "<td>
               
@@ -130,19 +134,6 @@
               echo "<td>
             <form method='post' action='../edit/editarinscripcion.php'>
                 <input type='hidden' name='id' value='{$row[0]}'>
-                <input type='hidden' name='nombre_alumno' value='{$row[1]}'>
-                <input type='hidden' name='apellido_alumno' value='{$row[2]}'>
-                <input type='hidden' name='dni_alumno' value='{$row[3]}'>
-                <input type='hidden' name='email_alumno' value='{$row[4]}'>
-                <input type='hidden' name='telefono_alumno' value='{$row[5]}'>
-                <input type='hidden' name='fecha_inscripcion' value='{$row[6]}'>
-                <input type='hidden' name='asistencia' value='$row[7]'>
-                <input type='hidden' name='nota' value='$row[8]'>
-                <input type='hidden' name='materia' value='$row[9]'>
-                <input type='hidden' name='fecha' value='$row[10]'>
-                <input type='hidden' name='profesor_titular' value='$row[11]'>
-                <input type='hidden' name='profesor_vocal1' value='$row[12]'>
-                <input type='hidden' name='profesor_vocal2' value='$row[13]'>   
                 <button type='submit' class='btn btn-warning'>Modificar</button>
             </form>
           </td>";

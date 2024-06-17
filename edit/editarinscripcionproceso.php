@@ -46,9 +46,9 @@
         $fecha_inscripcion = $_POST['fecha_inscripcion'];
         $asistencia = $_POST['asistencia'];
         $nota = $_POST['nota'];
+        $tipo_mesa = $_POST['tipo_mesa'];
         $id_mesa = $_POST['materia'];
 
-        // Conexión a la base de datos
         $db_host = "localhost";
         $db_user = "root";
         $db_pass = "";
@@ -56,7 +56,6 @@
 
         $link = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 
-        // Verificar conexión
         if (!$link) {
           echo "<div class='alert alert-danger' role='alert'>";
           echo "Error: no se puede conectar a MySQL." . PHP_EOL;
@@ -66,8 +65,7 @@
           exit();
         }
 
-        // Actualizar la inscripción en la base de datos
-        $consulta = "UPDATE inscripciones SET fecha_inscripcion='$fecha_inscripcion', asistencia='$asistencia', nota='$nota', id_mesa='$id_mesa' WHERE id_inscripcion='$id_inscripcion'";
+        $consulta = "UPDATE inscripciones SET fecha_inscripcion='$fecha_inscripcion', asistencia='$asistencia', nota='$nota', tipo_mesa='$tipo_mesa', id_mesa='$id_mesa' WHERE id_inscripcion='$id_inscripcion'";
 
         if (!mysqli_query($link, $consulta)) {
           echo "<div class='alert alert-danger' role='alert'>";
