@@ -10,19 +10,30 @@
             margin: 0;
             padding: 0;
             background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            flex: 1; /* Ocupa el espacio restante */
         }
         .table-container {
-            padding: 20px;
-            overflow-x: auto;
             background-color: #ffffff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
-            margin-top: 20px;
+            padding: 20px;
+            margin-bottom: 200px; /* Espacio suficiente para el footer */
         }
         footer {
             background-color: #343a40;
             color: white;
             padding: 20px 0;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
         }
         footer img {
             width: 45px;
@@ -34,8 +45,7 @@
 <body>
     <div class="container">
         <h2 class="card-title text-center mt-4 mb-4"><strong>Modificar Inscripción</strong></h2>
-        <div class="d-flex justify-content-center">
-            <div class="table-container">
+        <div class="table-container">
                 <?php
                 include '../config/db-connection.php';
 
@@ -189,10 +199,9 @@
                     </form>
                 </div>
             </div>
-        </div>
     </div>
-
-    <footer class="text-center fixed-bottom">
+    <footer class="text-center">
+    
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -205,6 +214,9 @@
             </div>
         </div>
     </footer>
+
+    
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
