@@ -1,0 +1,21 @@
+.table-container {
+    width: 50rem;
+    height: 50rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem auto;
+    padding: 1rem 3rem;
+    font-size: 1rem;  
+    text-transform: capitalize;
+    font-family: 'Poppins', sans-serif;
+    background: transparent;
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+    transition: transform 0.5s ease, height 0.2s ease;
+  }
+label{
+    color: white;
+}

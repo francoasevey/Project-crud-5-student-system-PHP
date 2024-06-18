@@ -6,51 +6,63 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Modificar Inscripción</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #f8f9fa;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 800px;
-      padding: 20px;
-      flex: 1;
-      /* Ocupa el espacio restante */
-    }
-
-    .table-container {
-      background-color: #ffffff;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 200px;
-      /* Espacio suficiente para el footer */
-    }
-
-    footer {
-      background-color: #343a40;
-      color: white;
-      padding: 20px 0;
-      width: 100%;
-      position: fixed;
-      bottom: 0;
-    }
-
-    footer img {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-    }
-  </style>
+  <link rel="stylesheet" href="../css/home.css">
+  <link rel="stylesheet" href="../css/form.css">
 </head>
 
 <body>
+<div class="background">
+    <div class="nav-container">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand" href="home.php">Instituto TSDS</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="listadosDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Listados
+                </a>
+                <div class="dropdown-menu" aria-labelledby="listadosDropdown">
+                  <a class="dropdown-item" href="../list/listadomesashabilitadas.php">Mesas de Exámenes Habilitadas</a>
+                  <a class="dropdown-item" href="../list/listadoalumnosinscriptos.php">Listado de inscripciones</a>
+                  <a class="dropdown-item" href="../list/filtradomaterias.php">Filtrado por Materias</a>
+                  <a class="dropdown-item" href="../list/filtradoprofesores.php">Filtrado por Profesores</a>
+                  <a class="dropdown-item" href="home.php">Listado de Alumnos</a>
+                  <a class="dropdown-item" href="../list/listadoalumnosporexamen.php">Listar Mesas de Examen con tribunales</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> + </button>
+                <div class="dropdown-menu" aria-labelledby="mesasDropdown">
+                  <a class="dropdown-item" href="crearmesaexamen.php">Registrar Mesa de Examen</a>
+                  <a class="dropdown-item" href="crearincripcion.php">Registrar Inscripcion</a>
+                  <a class="dropdown-item" href="crearalumno.php">Registrar Alumno</a>
+                  <a class="dropdown-item" href="crearusuario.php">Registrar Usuarios</a>
+                </div>
+              </li>
+              <li class="nav-item">
+                <form method="post" action="../views/busqueda.php" class="form-inline my-2 my-lg-0">
+                  <input class="form-control mr-sm-2" type="search" placeholder="Buscar" name="buscar" aria-label="Buscar">
+                  <!--<select class="form-control mr-sm-2" name="filtro">
+                  <option value="nombre_persona">Nombre</option>
+                  <option value="dni">DNI</option>
+                  <option value="nombre_deporte">Materia</option>
+                  <option value="nota">Nota</option>
+                </select>-->
+                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                </form>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Cerrar Sesión</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
   <div class="container">
     <div class="table-container">
       <div class="container">
@@ -137,7 +149,7 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="nota">Nota:</label>
-              <input type="number" class="form-control" id="nota" name="nota" value="<?php echo $row['nota']; ?>" required>
+              <input type="number" class="form-control" id="nota" name="nota" max="10" min="1" value="<?php echo $row['nota']; ?>" required>
             </div>
             <div class="form-group col-md-6">
               <label for="fecha_mesa">Fecha Mesa:</label>
@@ -203,7 +215,7 @@
       </div>
     </div>
   </footer>
-
+  </div>
 
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

@@ -65,7 +65,14 @@
           exit();
         }
 
-        $consulta = "UPDATE inscripciones SET fecha_inscripcion='$fecha_inscripcion', asistencia='$asistencia', nota='$nota', condicion_alumno='$condicion_alumno', id_mesa='$id_mesa' WHERE id_inscripcion='$id_inscripcion'";
+        $consulta = "UPDATE inscripciones AS i
+             INNER JOIN mesas_examen AS m ON i.id_mesa = m.id_mesa
+             SET i.fecha_inscripcion='$fecha_inscripcion',
+                 i.asistencia='$asistencia',
+                 i.nota='$nota',
+                 i.condicion_alumno='$condicion_alumno',
+                 i.id_mesa='$id_mesa'
+             WHERE i.id_inscripcion='$id_inscripcion'";
 
         if (!mysqli_query($link, $consulta)) {
           echo "<div class='alert alert-danger' role='alert'>";
@@ -74,34 +81,47 @@
           echo "</div>";
           exit();
         }
+
+        $consulta_nombre_materia = "SELECT m.materia
+                            FROM mesas_examen AS m
+                            WHERE m.id_mesa = '$id_mesa'";
+
+        $resultado = mysqli_query($link, $consulta_nombre_materia);
+
+        if ($row = mysqli_fetch_assoc($resultado)) {
+          $nombre_materia = $row['materia'];
+        } else {
+          $nombre_materia = "No disponible";
+        }
+
         echo "<div class='alert alert-success' role='alert'>";
         echo "Los siguientes datos de la inscripción han sido editados en la base de datos.";
         echo "</div>";
 
-        // Mostrar los datos editados
         echo "<table class='table table-striped'>
-                        <thead>
-                            <tr>
-                                <th>Fecha de Inscripción</th>
-                                <th>Condicion Alumno</th>
-                                <th>Asistencia</th>
-                                <th>Nota</th>
-                                <th>Materia</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>$fecha_inscripcion</td>
-                                <td>$condicion_alumno</td>
-                                <td>$asistencia</td>
-                                <td>$nota</td>
-                                <td>$id_mesa</td>
-                            </tr>
-                        </tbody>
-                    </table>";
+        <thead>
+            <tr>
+                <th>Fecha de Inscripción</th>
+                <th>Condicion Alumno</th>
+                <th>Asistencia</th>
+                <th>Nota</th>
+                <th>Materia</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>$fecha_inscripcion</td>
+                <td>$condicion_alumno</td>
+                <td>$asistencia</td>
+                <td>$nota</td>
+                <td>$nombre_materia</td>
+            </tr>
+        </tbody>
+    </table>";
 
         mysqli_close($link);
         ?>
+
         <div class="d-flex justify-content-center">
           <form action="../views/home.php" class="mr-2">
             <input type="submit" value="Volver al Listado" class="btn btn-primary">
