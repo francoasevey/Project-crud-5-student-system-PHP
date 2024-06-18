@@ -44,9 +44,9 @@
         <?php
         $id_inscripcion = $_POST['id'];
         $fecha_inscripcion = $_POST['fecha_inscripcion'];
+        $condicion_alumno = $_POST['condicion_alumno'];
         $asistencia = $_POST['asistencia'];
         $nota = $_POST['nota'];
-        $tipo_mesa = $_POST['tipo_mesa'];
         $id_mesa = $_POST['materia'];
 
         $db_host = "localhost";
@@ -65,7 +65,7 @@
           exit();
         }
 
-        $consulta = "UPDATE inscripciones SET fecha_inscripcion='$fecha_inscripcion', asistencia='$asistencia', nota='$nota', tipo_mesa='$tipo_mesa', id_mesa='$id_mesa' WHERE id_inscripcion='$id_inscripcion'";
+        $consulta = "UPDATE inscripciones SET fecha_inscripcion='$fecha_inscripcion', asistencia='$asistencia', nota='$nota', condicion_alumno='$condicion_alumno', id_mesa='$id_mesa' WHERE id_inscripcion='$id_inscripcion'";
 
         if (!mysqli_query($link, $consulta)) {
           echo "<div class='alert alert-danger' role='alert'>";
@@ -83,6 +83,7 @@
                         <thead>
                             <tr>
                                 <th>Fecha de Inscripción</th>
+                                <th>Condicion Alumno</th>
                                 <th>Asistencia</th>
                                 <th>Nota</th>
                                 <th>Materia</th>
@@ -91,6 +92,7 @@
                         <tbody>
                             <tr>
                                 <td>$fecha_inscripcion</td>
+                                <td>$condicion_alumno</td>
                                 <td>$asistencia</td>
                                 <td>$nota</td>
                                 <td>$id_mesa</td>

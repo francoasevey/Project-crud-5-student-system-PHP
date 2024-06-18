@@ -118,7 +118,7 @@
           </div>
 
           <div class="form-row">
-          <div class="form-group col-md-6">
+            <div class="form-group col-md-6">
               <label for="condicion_alumno">Condicion Alumno:</label>
               <select class="form-control" id="condicion_alumno" name="condicion_alumno" required>
                 <option value="Regular" <?php echo ($row['condicion_alumno'] == 'Regular') ? 'selected' : ''; ?>>Regular</option>
@@ -135,7 +135,7 @@
           </div>
 
           <div class="form-row">
-          <div class="form-group col-md-6">
+            <div class="form-group col-md-6">
               <label for="nota">Nota:</label>
               <input type="number" class="form-control" id="nota" name="nota" value="<?php echo $row['nota']; ?>" required>
             </div>
@@ -143,13 +143,6 @@
               <label for="fecha_mesa">Fecha Mesa:</label>
               <input type="date" class="form-control" id="fecha_mesa" name="fecha_mesa" value="<?php echo $row['fecha_mesa']; ?>" readonly>
             </div>
-            <!--<div class="form-group col-md-6">
-              <label for="tipo_mesa">Tipo Mesa:</label>
-              <select class="form-control" id="tipo_mesa" name="tipo_mesa" required>
-                <option value="regular" <?php echo ($row['tipo_mesa'] == 'regular') ? 'selected' : ''; ?>>Regular</option>
-                <option value="libre" <?php echo ($row['tipo_mesa'] == 'libre') ? 'selected' : ''; ?>>Libre</option>
-              </select>
-            </div>-->
           </div>
 
           <div class="form-row">
@@ -165,13 +158,13 @@
               </select>
             </div>
             <div class="form-group col-md-6">
-              <label for="profesor_titular">profesor titular:</label>
+              <label for="profesor_titular">Profesor Titular:</label>
               <input type="text" class="form-control" id="profesor_titular" name="profesor_titular" value="<?php echo $row['profesor_titular']; ?>" readonly>
             </div>
           </div>
 
-          <div class="form-row">  
-          <div class="form-group col-md-6">
+          <div class="form-row">
+            <div class="form-group col-md-6">
               <label for="profesor_vocal1">Profesor Vocal 1:</label>
               <input type="text" class="form-control" id="profesor_vocal1" name="profesor_vocal1" value="<?php echo $row['profesor_vocal1']; ?>" readonly>
             </div>
