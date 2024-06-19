@@ -11,7 +11,7 @@ formNota.addEventListener("input", habilitarBotonInscripcion);
 formMateria.addEventListener("change", habilitarBotonInscripcion);
 
 function habilitarBotonInscripcion() {
-  var botonProcesar = document.querySelector("botonProcesarInscripcion");
+  var botonProcesar = document.getElementById("botonProcesarInscripcion");
   if (
     formFechaInscripcion.value.trim() !== "" ||
     formCondicionAlumno.value !== "" ||
