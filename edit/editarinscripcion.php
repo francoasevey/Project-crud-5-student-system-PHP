@@ -188,7 +188,7 @@
 
             <div class="form-row">
               <div class="form-group col-md-6 text-center">
-                <button type="submit" class="btn btn-primary" id="botonProcesar">Procesar</button>
+                <button type="submit" class="btn btn-primary" id="botonProcesarInscripcion">Procesar</button>
               </div>
               <div class="form-group col-md-6 text-center">
                 <button type="button" class="btn btn-secondary" onclick="window.location.href='../views/home.php'">Volver al Listado</button>
@@ -216,7 +216,7 @@
     </footer>
   </div>
 
-  <script src="boton.js"></script>
+  <script src="botoneditinscripcion.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

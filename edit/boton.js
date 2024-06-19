@@ -24,30 +24,3 @@ function habilitarBoton() {
     botonProcesar.setAttribute("disabled", "disabled");
   }
 }
-
-var formFechaInscripcion = document.getElementById("fecha_inscripcion");
-var formCondicionAlumno = document.getElementById("condicion_alumno");
-var formAsistencia = document.getElementById("asistencia");
-var formNota = document.getElementById("nota");
-var formMateria = document.getElementById("materia");
-
-formFechaInscripcion.addEventListener("input", habilitarBoton);
-formCondicionAlumno.addEventListener("change", habilitarBoton);
-formAsistencia.addEventListener("change", habilitarBoton);
-formNota.addEventListener("input", habilitarBoton);
-formMateria.addEventListener("change", habilitarBoton);
-
-function habilitarBoton() {
-  var botonProcesar = document.querySelector("button[type=submit]");
-  if (
-    formFechaInscripcion.value.trim() !== "" ||
-    formCondicionAlumno.value !== "" ||
-    formAsistencia.value !== "" ||
-    formNota.value.trim() !== "" ||
-    formMateria.value !== ""
-  ) {
-    botonProcesar.removeAttribute("disabled");
-  } else {
-    botonProcesar.setAttribute("disabled", "disabled");
-  }
-}
