@@ -86,6 +86,15 @@
           }
 
           $row = mysqli_fetch_assoc($resultado);
+          $id_alumno = $row['id_alumno'];
+
+          $materias_inscritas_consulta = "SELECT id_mesa FROM inscripciones WHERE id_alumno = '$id_alumno'";
+          $materias_inscritas_result = mysqli_query($link, $materias_inscritas_consulta);
+          $materias_inscritas = [];
+          while ($materia = mysqli_fetch_assoc($materias_inscritas_result)) {
+            $materias_inscritas[] = $materia['id_mesa'];
+          }
+
 
           $materias = mysqli_query($link, "SELECT id_mesa, materia FROM mesas_examen");
           $profesortitular = mysqli_query($link, "SELECT id_mesa, profesor_titular FROM mesas_examen");
@@ -163,9 +172,11 @@
                 <select class="form-control" id="materia" name="materia" required>
                   <option value="" disabled>Seleccione una Materia</option>
                   <?php while ($materia = mysqli_fetch_assoc($materias)) : ?>
-                    <option value="<?php echo $materia['id_mesa']; ?>" <?php echo ($materia['id_mesa'] == $row['id_mesa']) ? 'selected' : ''; ?>>
-                      <?php echo $materia['materia']; ?>
-                    </option>
+                    <?php if (!in_array($materia['id_mesa'], $materias_inscritas) || $materia['id_mesa'] == $row['id_mesa']) : ?>
+                      <option value="<?php echo $materia['id_mesa']; ?>" <?php echo ($materia['id_mesa'] == $row['id_mesa']) ? 'selected' : ''; ?>>
+                        <?php echo $materia['materia']; ?>
+                      </option>
+                    <?php endif; ?>
                   <?php endwhile; ?>
                 </select>
               </div>
