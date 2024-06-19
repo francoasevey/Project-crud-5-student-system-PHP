@@ -190,7 +190,7 @@
             <div class="form-group col-md-6 text-center">
               <button type="submit" class="btn btn-primary">Procesar</button>
             </div>
-            <div class="form-group col-md-6 text-center margin= 0">
+            <div class="form-group col-md-6 text-center">
               <form action="../views/home.php" class="mr-2">
                 <input type="submit" value="Volver al Listado" class="btn btn-secondary">
               </form>
@@ -217,7 +217,7 @@
   </footer>
   </div>
 
-
+  <script src="boton.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
