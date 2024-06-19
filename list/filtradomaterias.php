@@ -164,20 +164,20 @@
         </table>
       </div>
     </div>
-    <footer class="text-center">
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            <img src="imagen.jpeg" alt="Imagen de perfil" class="img-thumbnail rounded-circle">
-            <p class="mb-0">Desarrollador: Franco Asevey</p>
-            <p class="mb-0">Materia: Programación 3</p>
-            <p class="mb-0">Carrera: Tecnicatura Superior en Desarrollo de Software</p>
-            <p class="mb-0">Mes: Mayo - Año: 2024</p>
-          </div>
+  </div>
+  <footer class="text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <img src="imagen.jpeg" alt="Imagen de perfil" class="img-thumbnail rounded-circle">
+          <p class="mb-0">Desarrollador: Franco Asevey</p>
+          <p class="mb-0">Materia: Programación 3</p>
+          <p class="mb-0">Carrera: Tecnicatura Superior en Desarrollo de Software</p>
+          <p class="mb-0">Mes: Mayo - Año: 2024</p>
         </div>
       </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
