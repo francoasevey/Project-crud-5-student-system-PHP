@@ -149,3 +149,18 @@ h2,
   font-size: 15px;
   color: #ffffff;
 }
+.pagination .page-link{
+  width: 100%;
+  background: transparent;
+  border: 2px solid rgb(255, 255, 255);
+  border-radius: 2px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 10px rgb(255, 255, 255);
+  transition: transform .5s ease height .2s ease;
+  color: rgb(255, 255, 255);
+}
+.pagination .page-item.active .page-link {
+  background-color: rgb(0, 0, 0);
+  border-color: rgb(255, 255, 255);
+  color: #ffffff;
+}
