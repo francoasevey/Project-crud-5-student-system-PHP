@@ -83,12 +83,31 @@
             <?php
             include '../config/db-connection.php';
 
-            $consulta = "SELECT * FROM alumnos";
+            $registros_por_pagina = 10;
+            $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+            $inicio = ($pagina_actual - 1) * $registros_por_pagina;
+
+            $consulta = "SELECT * FROM alumnos LIMIT $inicio, $registros_por_pagina";
             if (!($resultado = mysqli_query($link, $consulta))) {
               echo "<p>Error: La consulta SQL tiene un problema, verificar.</p> <br>";
               echo "<p>$consulta</p>";
               exit();
             }
+            
+            $consulta_total = "SELECT COUNT(*) as total FROM alumnos";
+            $resultado_total = mysqli_query($link, $consulta_total);
+            $fila_total = mysqli_fetch_assoc($resultado_total);
+            $total_registros = $fila_total['total'];
+            mysqli_free_result($resultado_total);
+
+            $total_paginas = ceil($total_registros / $registros_por_pagina);
+              if ($total_paginas > 1) {
+                  echo "<ul class='pagination justify-content-center'>";
+                  for ($i = 1; $i <= $total_paginas; $i++) {
+                      echo "<li class='page-item " . ($pagina_actual == $i ? 'active' : '') . "'><a class='page-link' href='?pagina=$i'>$i</a></li>";
+                  }
+                  echo "</ul>";
+              }
 
             while ($row = mysqli_fetch_row($resultado)) {
               echo "<tr>";
@@ -100,21 +119,22 @@
               echo "<td>$row[5]</td>";
 
               echo "<td>
-                      <form method='post' action='../delete/eliminaralumno.php'>
-                      <input type='hidden' name='id' value='$row[0]'>
-                      <button type='submit' class='btn btn-danger'>Eliminar</button>
-                      </form>
-                      </td>";
+                    <form method='post' action='../delete/eliminaralumno.php'>
+                    <input type='hidden' name='id' value='$row[0]'>
+                    <button type='submit' class='btn btn-danger'>Eliminar</button>
+                    </form>
+                    </td>";
               echo "<td>
-                      <form method='post' action='../edit/editaralumno.php'>
-                      <input type='hidden' name='id' value='$row[0]'>
-                      <button type='submit' class='btn btn-warning'>Modificar</button>
-                      </form>
-                      </td>";
+                    <form method='post' action='../edit/editaralumno.php'>
+                    <input type='hidden' name='id' value='$row[0]'>
+                    <button type='submit' class='btn btn-warning'>Modificar</button>
+                    </form>
+                    </td>";
               echo "</tr>";
             }
 
             mysqli_free_result($resultado);
+            mysqli_close($link);
             ?>
           </tbody>
         </table>
