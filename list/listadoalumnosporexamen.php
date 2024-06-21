@@ -138,7 +138,7 @@
               echo "<td>{$row['total_alumnos']}</td>";
               echo "<td>
               
-            <form method='post' action='../delete/eliminarinscripcion.php'>
+            <form method='post' action='../delete/eliminarmesa.php'>
                 <input type='hidden' name='id' value='$row[id_mesa]'>
                 <button type='submit' class='btn btn-danger'>
                  <i class='fas fa-trash-alt'></i>
@@ -146,7 +146,7 @@
             </form>
           </td>";
               echo "<td>
-            <form method='post' action='../edit/editarinscripcion.php'>
+            <form method='post' action='../edit/editarmesa.php'>
                 <input type='hidden' name='id' value='$row[id_mesa]'>
                 <button type='submit' class='btn btn-warning'>
                  <i class='fas fa-edit'></i>
