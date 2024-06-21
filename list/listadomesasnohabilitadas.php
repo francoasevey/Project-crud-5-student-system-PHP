@@ -65,7 +65,7 @@
 
     <div class="container content-container">
       <div class="table-container">
-        <h2 class="text-center">Mesas de Exámenes Habilitadas</h2>
+        <h2 class="text-center">Mesas de Exámenes NO Habilitadas</h2>
         <table class="table table-bordered table-hover">
           <thead class="thead-dark">
             <tr>
@@ -87,7 +87,7 @@
             $inicio = ($pagina_actual - 1) * $registros_por_pagina;
 
             $currentDate = date('Y-m-d'); // Obtener la fecha actual
-            $consulta_count = "SELECT COUNT(*) as total FROM mesas_examen WHERE fecha <= '$currentDate'";
+            $consulta_count = "SELECT COUNT(*) as total FROM mesas_examen WHERE fecha > '$currentDate'";
             $resultado_count = mysqli_query($link, $consulta_count);
             $fila_count = mysqli_fetch_assoc($resultado_count);
             $total_registros = $fila_count['total'];
@@ -95,7 +95,7 @@
 
             $total_paginas = ceil($total_registros / $registros_por_pagina);
 
-            $consulta = "SELECT * FROM mesas_examen WHERE fecha <= '$currentDate' LIMIT $inicio, $registros_por_pagina";
+            $consulta = "SELECT * FROM mesas_examen WHERE fecha > '$currentDate' LIMIT $inicio, $registros_por_pagina";
             if (!($resultado = mysqli_query($link, $consulta))) {
               echo "<p>Error: La consulta SQL tiene un problema, verificar.</p> <br>";
               echo "<p>$consulta</p>";
