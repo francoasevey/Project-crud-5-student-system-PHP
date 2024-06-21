@@ -15,7 +15,7 @@
     <div class="nav-container">
       <nav class="navbar navbar-expand-lg">
         <div class="container">
-          <a class="navbar-brand" href="home.php">Instituto TSDS</a>
+          <a class="navbar-brand" href="../views/home.php">Instituto TSDS</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -28,7 +28,7 @@
                 <div class="dropdown-menu" aria-labelledby="listadosDropdown">
                   <a class="dropdown-item" href="../list/listadomesashabilitadas.php">Mesas de Exámenes Habilitadas</a>
                   <a class="dropdown-item" href="../list/listadoalumnosinscriptos.php">Listado de inscripciones</a>
-                  <a class="dropdown-item" href="../list/filtradoprofesores.php">Filtrado por Materia</a>
+                  <a class="dropdown-item" href="../list/filtradomaterias.php">Filtrado por Materia</a>
                   <form method="GET" class="mr-2">
                     <select name="profesor" class="form-control" onchange="this.form.submit()">
                       <?php
@@ -54,7 +54,7 @@
                       <?php endforeach; ?>
                     </select>
                   </form>
-                  <a class="dropdown-item" href="home.php">Listado de Alumnos</a>
+                  <a class="dropdown-item" href="../views/home.php">Listado de Alumnos</a>
                   <a class="dropdown-item" href="../list/listadoalumnosporexamen.php">Listar Mesas de Examen con tribunales</a>
                 </div>
               </li>

@@ -15,7 +15,7 @@
     <div class="nav-container">
       <nav class="navbar navbar-expand-lg">
         <div class="container">
-          <a class="navbar-brand" href="home.php">Instituto TSDS</a>
+          <a class="navbar-brand" href="../views/home.php">Instituto TSDS</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -50,7 +50,7 @@
                     </select>
                   </form>
                   <a class="dropdown-item" href="../list/filtradoprofesores.php">Filtrado por Profesores</a>
-                  <a class="dropdown-item" href="home.php">Listado de Alumnos</a>
+                  <a class="dropdown-item" href="../views/home.php">Listado de Alumnos</a>
                   <a class="dropdown-item" href="../list/listadoalumnosporexamen.php">Listar Mesas de Examen con tribunales</a>
                 </div>
               </li>
@@ -124,10 +124,10 @@
               }
 
               $consulta = "SELECT alumnos.nombre AS nombre_alumno, alumnos.apellido, alumnos.dni, alumnos.email, alumnos.telefono,
-       inscripciones.fecha_inscripcion, inscripciones.asistencia, inscripciones.nota
-       FROM alumnos
-       INNER JOIN inscripciones ON alumnos.id_alumno = inscripciones.id_alumno
-       WHERE inscripciones.id_mesa = $id_realiza";
+              inscripciones.fecha_inscripcion, inscripciones.asistencia, inscripciones.nota
+              FROM alumnos
+              INNER JOIN inscripciones ON alumnos.id_alumno = inscripciones.id_alumno
+              WHERE inscripciones.id_mesa = $id_realiza";
 
               if (!($resultado = mysqli_query($link, $consulta))) {
                 echo "<p>Error: La consulta SQL tiene un problema, verificar.</p> <br>";

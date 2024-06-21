@@ -14,7 +14,7 @@
     <div class="nav-container">
       <nav class="navbar navbar-expand-lg">
         <div class="container">
-          <a class="navbar-brand" href="home.php">Instituto TSDS</a>
+          <a class="navbar-brand" href="../views/home.php">Instituto TSDS</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -29,8 +29,8 @@
                   <a class="dropdown-item" href="../list/listadoalumnosinscriptos.php">Listado de inscripciones</a>
                   <a class="dropdown-item" href="../list/filtradomaterias.php">Filtrado por Materias</a>
                   <a class="dropdown-item" href="../list/filtradoprofesores.php">Filtrado por Profesores</a>
-                  <a class="dropdown-item" href="home.php">Listado de Alumnos</a>
-                  <a class="dropdown-item" href="/list/listaexamenes.php">Listar Mesas de Examen con tribunales</a>
+                  <a class="dropdown-item" href="../views/home.php">Listado de Alumnos</a>
+                  <a class="dropdown-item" href="../list/listadoalumnosporexamen.php">Listar Mesas de Examen con tribunales</a>
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -102,20 +102,20 @@
         </table>
       </div>
     </div>
-    <footer class="text-center">
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            <img src="imagen.jpeg" alt="Imagen de perfil" class="img-thumbnail rounded-circle">
-            <p class="mb-0">Desarrollador: Franco Asevey</p>
-            <p class="mb-0">Materia: Programación 3</p>
-            <p class="mb-0">Carrera: Tecnicatura Superior en Desarrollo de Software</p>
-            <p class="mb-0">Mes: Mayo - Año: 2024</p>
-          </div>
+  </div>
+  <footer class="text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <img src="imagen.jpeg" alt="Imagen de perfil" class="img-thumbnail rounded-circle">
+          <p class="mb-0">Desarrollador: Franco Asevey</p>
+          <p class="mb-0">Materia: Programación 3</p>
+          <p class="mb-0">Carrera: Tecnicatura Superior en Desarrollo de Software</p>
+          <p class="mb-0">Mes: Año: 2024</p>
         </div>
       </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
