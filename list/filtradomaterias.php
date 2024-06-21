@@ -43,8 +43,7 @@
                       <option value="">Selecciona una Materia</option>
                       <?php foreach ($resultado as $examen) : ?>
                         <option value="<?php echo $examen['id_mesa']; ?>" <?php
-                                                                          if (isset($_GET['mesas_examen']) && $_GET['mesas_examen'] == $examen['id_mesa']) echo 'selected';
-                                                                          ?>>
+                          if (isset($_GET['mesas_examen']) && $_GET['mesas_examen'] == $examen['id_mesa']) echo 'selected'; ?>>
                           <?php echo $examen['materia']; ?>
                         </option>
                       <?php endforeach; ?>

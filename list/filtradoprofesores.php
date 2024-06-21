@@ -6,91 +6,92 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Listar Alumnos por Profesores</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #f8f9fa;
-    }
-
-    .table-container {
-      margin-top: 50px;
-    }
-
-    footer {
-      background-color: #343a40;
-      color: white;
-      padding: 20px 0;
-    }
-
-    footer img {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-    }
-  </style>
+  <link rel="stylesheet" href="../css/home.css">
 </head>
 
 <body>
 
-  <div class="container table-container">
-    <h2 class="text-center">Listar Alumnos por Profesores</h2>
-    <form method="post" action="busqueda.php" class="form-inline justify-content-center mb-4">
-      <input class="form-control mr-sm-2 w-25" type="search" placeholder="Buscar por nombre o DNI" aria-label="Buscar" name="buscar">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-    </form>
+  <div class="background">
+    <div class="nav-container">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand" href="home.php">Instituto TSDS</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="listadosDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Listados
+                </a>
+                <div class="dropdown-menu" aria-labelledby="listadosDropdown">
+                  <a class="dropdown-item" href="../list/listadomesashabilitadas.php">Mesas de Exámenes Habilitadas</a>
+                  <a class="dropdown-item" href="../list/listadoalumnosinscriptos.php">Listado de inscripciones</a>
+                  <a class="dropdown-item" href="../list/filtradoprofesores.php">Filtrado por Materia</a>
+                  <form method="GET" class="mr-2">
+                    <select name="profesor" class="form-control" onchange="this.form.submit()">
+                      <?php
+                      include '../config/db-connection.php';
 
-    <div class="d-flex justify-content-center mb-4">
-      <form action="listapersona.php" class="mr-2">
-        <button type="submit" class="btn btn-info">Personas</button>
-      </form>
-      <form action="listardeporte.php" class="mr-2">
-        <button type="submit" class="btn btn-info">Deportes</button>
-      </form>
-      <form method="GET" class="mr-2">
-        <select name="profesor" class="form-control" onchange="this.form.submit()">
-          <?php
-          include '../config/db-connection.php';
-
-          $consulta = "SELECT DISTINCT profesor_titular FROM mesas_examen WHERE profesor_titular IS NOT NULL
+                      $consulta = "SELECT DISTINCT profesor_titular FROM mesas_examen WHERE profesor_titular IS NOT NULL
                        UNION
                        SELECT DISTINCT profesor_vocal1 FROM mesas_examen WHERE profesor_vocal1 IS NOT NULL
                        UNION
                        SELECT DISTINCT profesor_vocal2 FROM mesas_examen WHERE profesor_vocal2 IS NOT NULL";
 
-          if (!($resultado = mysqli_query($link, $consulta))) {
-            echo "<p>Error: La consulta SQL tiene un problema, verificar.</p> <br>";
-            echo "<p>$consulta</p>";
-            exit();
-          }
-          ?>
-          <option value="">Selecciona un Profesor</option>
-          <?php foreach ($resultado as $profesor) : ?>
-            <option value="<?php echo $profesor['profesor_titular']; ?>" 
-              <?php if (isset($_GET['profesor']) && $_GET['profesor'] == $profesor['profesor_titular']) echo 'selected'; ?>>
-              <?php echo $profesor['profesor_titular']; ?>
-            </option>
-          <?php endforeach; ?>
-        </select>
-      </form>
-      <form action="deportemaspracticado.php" class="mr-2">
-        <button type="submit" class="btn btn-info">Deporte más Practicado</button>
-      </form>
-      <form action="listarelaciones.php" class="mr-2">
-        <button type="submit" class="btn btn-info">Relaciones</button>
-      </form>
-
-      <div class="dropdown">
-        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> + </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="agregarpersona.php">Persona</a>
-          <a class="dropdown-item" href="agregardeporte.php">Deporte</a>
-          <a class="dropdown-item" href="agregarrelacion.php">Relacion</a>
+                      if (!($resultado = mysqli_query($link, $consulta))) {
+                        echo "<p>Error: La consulta SQL tiene un problema, verificar.</p> <br>";
+                        echo "<p>$consulta</p>";
+                        exit();
+                      }
+                      ?>
+                      <option value="">Selecciona un Profesor</option>
+                      <?php foreach ($resultado as $profesor) : ?>
+                        <option value="<?php echo $profesor['profesor_titular']; ?>" <?php if (isset($_GET['profesor']) && $_GET['profesor'] == $profesor['profesor_titular']) echo 'selected'; ?>>
+                          <?php echo $profesor['profesor_titular']; ?>
+                        </option>
+                      <?php endforeach; ?>
+                    </select>
+                  </form>
+                  <a class="dropdown-item" href="home.php">Listado de Alumnos</a>
+                  <a class="dropdown-item" href="../list/listadoalumnosporexamen.php">Listar Mesas de Examen con tribunales</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> + </button>
+                <div class="dropdown-menu" aria-labelledby="mesasDropdown">
+                  <a class="dropdown-item" href="crearmesaexamen.php">Registrar Mesa de Examen</a>
+                  <a class="dropdown-item" href="crearincripcion.php">Registrar Inscripcion</a>
+                  <a class="dropdown-item" href="crearalumno.php">Registrar Alumno</a>
+                  <a class="dropdown-item" href="crearusuario.php">Registrar Usuarios</a>
+                </div>
+              </li>
+              <li class="nav-item">
+                <form method="post" action="../views/busqueda.php" class="form-inline my-2 my-lg-0">
+                  <input class="form-control mr-sm-2" type="search" placeholder="Buscar" name="buscar" aria-label="Buscar">
+                  <!--<select class="form-control mr-sm-2" name="filtro">
+                  <option value="nombre_persona">Nombre</option>
+                  <option value="dni">DNI</option>
+                  <option value="nombre_deporte">Materia</option>
+                  <option value="nota">Nota</option>
+                </select>-->
+                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                </form>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Cerrar Sesión</a>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
+      </nav>
     </div>
 
-    <table class="table table-bordered table-hover">
+    <div class="container content-container">
+      <div class="table-container">
+        <h2 class="text-center">Listar Alumnos por Profesores</h2>
+        <table class="table table-bordered table-hover">
       <thead class="thead-dark">
         <tr>
           <th>Nombre</th>
@@ -125,11 +126,11 @@
           }
 
           $consulta = "SELECT alumnos.nombre AS nombre_alumno, alumnos.apellido, alumnos.dni, alumnos.email, alumnos.telefono,
-       inscripciones.fecha_inscripcion, inscripciones.asistencia, inscripciones.nota
-       FROM alumnos
-       INNER JOIN inscripciones ON alumnos.id_alumno = inscripciones.id_alumno
-       INNER JOIN mesas_examen ON inscripciones.id_mesa = mesas_examen.id_mesa
-       WHERE mesas_examen.profesor_titular = '$profesor_seleccionado' OR mesas_examen.profesor_vocal1 = '$profesor_seleccionado' OR mesas_examen.profesor_vocal2 = '$profesor_seleccionado'";
+          inscripciones.fecha_inscripcion, inscripciones.asistencia, inscripciones.nota
+          FROM alumnos
+          INNER JOIN inscripciones ON alumnos.id_alumno = inscripciones.id_alumno
+          INNER JOIN mesas_examen ON inscripciones.id_mesa = mesas_examen.id_mesa
+          WHERE mesas_examen.profesor_titular = '$profesor_seleccionado' OR mesas_examen.profesor_vocal1 = '$profesor_seleccionado' OR mesas_examen.profesor_vocal2 = '$profesor_seleccionado'";
 
           if (!($resultado = mysqli_query($link, $consulta))) {
             echo "<p>Error: La consulta SQL tiene un problema, verificar.</p> <br>";
@@ -162,7 +163,8 @@
         ?>
       </tbody>
     </table>
-
+      </div>
+    </div>
   </div>
 
   <footer class="text-center">
