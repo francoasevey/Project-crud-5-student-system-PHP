@@ -8,7 +8,6 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="../css/home.css">
 </head>
-
 <body>
   <div class="background">
     <div class="nav-container">
@@ -66,6 +65,10 @@
     <div class="container content-container">
       <div class="table-container">
         <h2 class="text-center">Mesas de Exámenes Habilitadas</h2>
+        <div class="btn-container">
+          <a href="listadomesashabilitadas.php" class="btn-mesa">Mesas Habilitadas</a>
+          <a href="listadomesasnohabilitadas.php" class="btn-mesa">Mesas No Habilitadas</a>
+        </div>
         <table class="table table-bordered table-hover">
           <thead class="thead-dark">
             <tr>
