@@ -134,7 +134,7 @@
             }
             
             while ($row = mysqli_fetch_row($resultado)) {
-              echo "<tr>";
+              echo "<tr>"; 
               echo "<td>$row[0]</td>"; // ID de la inscripción
               echo "<td>$row[1]</td>"; // Nombre del alumno
               echo "<td>$row[2]</td>"; // Apellido del alumno
