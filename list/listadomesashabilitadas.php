@@ -43,8 +43,14 @@
                 </div>
               </li>
               <li class="nav-item">
-                <form class="form-inline my-2 my-lg-0">
-                  <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
+                <form method="post" action="../views/busqueda.php" class="form-inline my-2 my-lg-0">
+                  <input class="form-control mr-sm-2" type="search" placeholder="Buscar" name="buscar" aria-label="Buscar">
+                  <!--<select class="form-control mr-sm-2" name="filtro">
+                  <option value="nombre_persona">Nombre</option>
+                  <option value="dni">DNI</option>
+                  <option value="nombre_deporte">Materia</option>
+                  <option value="nota">Nota</option>
+                </select>-->
                   <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
                 </form>
               </li>
