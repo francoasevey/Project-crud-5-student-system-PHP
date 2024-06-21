@@ -87,7 +87,7 @@
           </thead>
           <tbody>
             <?php
-            $formBuscar = isset($_POST["buscar"]) ? $_POST["buscar"] : "";
+            $formBuscar = isset($_GET["buscar"]) ? $_GET["buscar"] : (isset($_POST["buscar"]) ? $_POST["buscar"] : "");
 
             if (!empty($formBuscar)) {
               $db_host = "localhost";
@@ -103,47 +103,91 @@
                   "Error de depuración: " . mysqli_connect_error() . PHP_EOL);
               }
 
-              $consulta = "SELECT a.id_alumno, a.nombre, a.apellido, a.dni, a.email, a.telefono,
-               m.id_mesa, m.fecha, m.materia, m.tipo,
-               i.fecha_inscripcion, i.asistencia, i.nota
-              FROM alumnos a
-              LEFT JOIN inscripciones i ON a.id_alumno = i.id_alumno
-              LEFT JOIN mesas_examen m ON i.id_mesa = m.id_mesa
-              WHERE a.nombre LIKE '%$formBuscar%' 
-              OR a.apellido LIKE '%$formBuscar%' 
-              OR a.dni LIKE '%$formBuscar%' 
-              OR m.materia LIKE '%$formBuscar%' 
-              OR i.nota LIKE '%$formBuscar%' 
-              OR i.asistencia LIKE '%$formBuscar%'
-              OR m.tipo LIKE '%$formBuscar%' 
-              OR a.telefono LIKE '%$formBuscar%' 
-              OR a.email LIKE '%$formBuscar%'";
+              $registros_por_pagina = 10;
+              $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+              $offset = ($pagina_actual - 1) * $registros_por_pagina;
 
+              $consulta = "SELECT a.id_alumno, a.nombre, a.apellido, a.dni, a.email, a.telefono,
+            m.id_mesa, m.fecha, m.materia, m.tipo,
+            i.fecha_inscripcion, i.asistencia, i.nota
+            FROM alumnos a
+            LEFT JOIN inscripciones i ON a.id_alumno = i.id_alumno
+            LEFT JOIN mesas_examen m ON i.id_mesa = m.id_mesa
+            WHERE a.nombre LIKE '%$formBuscar%' 
+            OR a.apellido LIKE '%$formBuscar%' 
+            OR a.dni LIKE '%$formBuscar%' 
+            OR m.materia LIKE '%$formBuscar%' 
+            OR i.nota LIKE '%$formBuscar%' 
+            OR i.asistencia LIKE '%$formBuscar%'
+            OR m.tipo LIKE '%$formBuscar%' 
+            OR a.telefono LIKE '%$formBuscar%' 
+            OR a.email LIKE '%$formBuscar%'
+            LIMIT $registros_por_pagina OFFSET $offset";
 
               $resultado = mysqli_query($link, $consulta);
 
               if (!$resultado) {
                 die("Error en la consulta SQL: " . mysqli_error($link));
               }
-              if (isset($resultado)) {
-                if (mysqli_num_rows($resultado) > 0) {
-                    while ($row = mysqli_fetch_row($resultado)) {
-                        echo "<tr>";
-                        for ($i = 0; $i < count($row); $i++) {
-                            echo "<td>{$row[$i]}</td>";
-                        }
-                        echo "</tr>";
-                    }
-                    mysqli_free_result($resultado);
-                } else {
-                    echo '<tr><td colspan="13" class="text-center">No hay Resultados de la Búsqueda.</td></tr>';
+
+              $consulta_total = "SELECT COUNT(*) as total 
+            FROM alumnos a
+            LEFT JOIN inscripciones i ON a.id_alumno = i.id_alumno
+            LEFT JOIN mesas_examen m ON i.id_mesa = m.id_mesa
+            WHERE a.nombre LIKE '%$formBuscar%' 
+            OR a.apellido LIKE '%$formBuscar%' 
+            OR a.dni LIKE '%$formBuscar%' 
+            OR m.materia LIKE '%$formBuscar%' 
+            OR i.nota LIKE '%$formBuscar%' 
+            OR i.asistencia LIKE '%$formBuscar%'
+            OR m.tipo LIKE '%$formBuscar%' 
+            OR a.telefono LIKE '%$formBuscar%' 
+            OR a.email LIKE '%$formBuscar%'";
+
+              $resultado_total = mysqli_query($link, $consulta_total);
+              $fila_total = mysqli_fetch_assoc($resultado_total);
+              $total_registros = $fila_total['total'];
+              mysqli_free_result($resultado_total);
+
+              $total_paginas = ceil($total_registros / $registros_por_pagina);
+
+              if ($total_paginas > 1) {
+                echo "<ul class='pagination justify-content-center'>";
+                for ($i = 1; $i <= $total_paginas; $i++) {
+                  echo "<li class='page-item " . ($pagina_actual == $i ? 'active' : '') . "'><a class='page-link' href='?pagina=$i&buscar=$formBuscar'>$i</a></li>";
                 }
-                mysqli_close($link);
+                echo "</ul>";
               }
+
+              if (mysqli_num_rows($resultado) > 0) {
+                while ($row = mysqli_fetch_assoc($resultado)) {
+                  echo "<tr>";
+                  echo "<td>{$row['id_alumno']}</td>";
+                  echo "<td>{$row['nombre']}</td>";
+                  echo "<td>{$row['apellido']}</td>";
+                  echo "<td>{$row['dni']}</td>";
+                  echo "<td>{$row['email']}</td>";
+                  echo "<td>{$row['telefono']}</td>";
+                  echo "<td>{$row['id_mesa']}</td>";
+                  echo "<td>{$row['fecha']}</td>";
+                  echo "<td>{$row['materia']}</td>";
+                  echo "<td>{$row['tipo']}</td>";
+                  echo "<td>{$row['fecha_inscripcion']}</td>";
+                  echo "<td>{$row['asistencia']}</td>";
+                  echo "<td>{$row['nota']}</td>";
+                  echo "</tr>";
+                }
+                mysqli_free_result($resultado);
+              } else {
+                echo '<tr><td colspan="13" class="text-center">No hay resultados para la búsqueda actual.</td></tr>';
+              }
+
+              mysqli_close($link);
             } else {
               echo "<tr><td colspan='13' class='text-center'>Por favor, introduzca un término de búsqueda.</td></tr>";
             }
             ?>
+
           </tbody>
         </table>
       </div>
