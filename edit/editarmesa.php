@@ -70,7 +70,7 @@
           <?php
           include '../config/conexionMesa.php';
           ?>
-          <form method="post" action="editaralumnoproceso.php">
+          <form method="post" action="editarmesaproceso.php">
             <div class="form-row">
               <div class="form-group col-sm-6">
                 <label for="id">ID:</label>
