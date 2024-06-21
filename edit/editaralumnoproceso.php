@@ -60,8 +60,17 @@
           $formEmail = $_POST["email"];
           $formPhone = $_POST["telefono"];
 
-          $consulta = "SELECT id_alumno FROM alumnos WHERE email='$formEmail' AND id_alumno != '$formID'";
+          // Escapar los valores para evitar inyección SQL
+          $formName = mysqli_real_escape_string($link, $formName);
+          $formLastName = mysqli_real_escape_string($link, $formLastName);
+          $formDNI = mysqli_real_escape_string($link, $formDNI);
+          $formEmail = mysqli_real_escape_string($link, $formEmail);
+          $formPhone = mysqli_real_escape_string($link, $formPhone);
+
+          // verifica que los datos no sean repetidos
+          $consulta = "SELECT id_alumno FROM alumnos WHERE (email='$formEmail' OR dni='$formDNI' OR telefono='$formPhone') AND id_alumno != '$formID'";
           $resultado = mysqli_query($link, $consulta);
+
 
           if (mysqli_num_rows($resultado) > 0) {
             echo "<div class='alert alert-danger' role='alert'>";

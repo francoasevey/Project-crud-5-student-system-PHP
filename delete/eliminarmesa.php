@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
 
   include '../config/db-connection.php';
 
-  $consulta = "DELETE FROM alumnos WHERE id_alumno='$formID'";
+  $consulta = "DELETE FROM mesas_examen WHERE id_mesa='$formID'";
   if (!mysqli_query($link, $consulta)) {
     echo "<div class='alert alert-danger' role='alert'>";
     echo "Error: La consulta SQL tiene un problema, verificar.<br>";
@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
     exit();
   }
   echo "<div class='alert alert-success' role='alert'>";
-  echo "El alumno ha sido eliminada de la base de datos.";
+  echo "La MESA ha sido eliminada de la base de datos.";
   echo "</div>";
   mysqli_close($link);
   header("Location: ../views/home.php");
