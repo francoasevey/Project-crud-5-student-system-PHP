@@ -1,0 +1,23 @@
+/*.table th,
+.table td {
+  font-size: 14.2px;
+  color: #ffffff;
+}
+.delete-icon {
+    color: red;
+}
+
+.edit-icon {
+    color: blue;
+}
+.table tbody tr td:nth-child(8){
+    font-size: 10px;
+    background-color: aqua;
+}
+
+.table-hover tbody tr:hover td:nth-child(8),
+.table-hover tbody tr td:nth-child(8) {
+    font-size: 10px;
+    background-color: aqua;
+}
+*/

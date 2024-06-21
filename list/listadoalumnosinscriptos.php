@@ -7,6 +7,8 @@
   <title>Instituto TSDS</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="../css/home.css">
+  <link rel="stylesheet" type="text/css" href="../css/alumnosinscriptos.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
@@ -90,8 +92,6 @@
             <?php
             include '../config/db-connection.php';
 
-
-
             $consulta = "SELECT i.id_inscripcion, a.nombre AS nombre_alumno, a.apellido AS apellido_alumno, a.dni AS dni_alumno, a.email AS email_alumno, a.telefono AS telefono_alumno,
             i.fecha_inscripcion, i.condicion_alumno, i.asistencia, i.nota,
             me.materia, me.tipo, me.fecha, me.profesor_titular, me.profesor_vocal1, me.profesor_vocal2
@@ -128,42 +128,42 @@
               
             <form method='post' action='../delete/eliminarinscripcion.php'>
                 <input type='hidden' name='id' value='$row[0]'>
-                <button type='submit' class='btn btn-danger'>Eliminar</button>
+                <button type='submit' class='btn btn-danger'>
+                 <i class='fas fa-trash-alt'></i>
+                </button>
             </form>
           </td>";
               echo "<td>
             <form method='post' action='../edit/editarinscripcion.php'>
                 <input type='hidden' name='id' value='{$row[0]}'>
-                <button type='submit' class='btn btn-warning'>Modificar</button>
+                <button type='submit' class='btn btn-warning'>
+                 <i class='fas fa-edit'></i>
+                </button>
             </form>
           </td>";
               echo "</tr>";
             }
-
-
             mysqli_free_result($resultado);
-
-
             ?>
 
           </tbody>
         </table>
       </div>
     </div>
-    <footer class="text-center">
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            <img src="imagen.jpeg" alt="Imagen de perfil" class="img-thumbnail rounded-circle">
-            <p class="mb-0">Desarrollador: Franco Asevey</p>
-            <p class="mb-0">Materia: Programación 3</p>
-            <p class="mb-0">Carrera: Tecnicatura Superior en Desarrollo de Software</p>
-            <p class="mb-0">Mes: Mayo - Año: 2024</p>
-          </div>
+  </div>
+  <footer class="text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <img src="imagen.jpeg" alt="Imagen de perfil" class="img-thumbnail rounded-circle">
+          <p class="mb-0">Desarrollador: Franco Asevey</p>
+          <p class="mb-0">Materia: Programación 3</p>
+          <p class="mb-0">Carrera: Tecnicatura Superior en Desarrollo de Software</p>
+          <p class="mb-0">Mes: Mayo - Año: 2024</p>
         </div>
       </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>

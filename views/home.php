@@ -149,7 +149,7 @@
           <p class="mb-0">Desarrollador: Franco Asevey</p>
           <p class="mb-0">Materia: Programación 3</p>
           <p class="mb-0">Carrera: Tecnicatura Superior en Desarrollo de Software</p>
-          <p class="mb-0">Mes: Mayo - Año: 2024</p>
+          <p class="mb-0">Año: 2024</p>
         </div>
       </div>
     </div>
