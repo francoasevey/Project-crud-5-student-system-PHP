@@ -91,20 +91,48 @@
           <tbody>
             <?php
             include '../config/db-connection.php';
-
+            
+            $registros_por_pagina = 10;
+            $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+            $inicio = ($pagina_actual - 1) * $registros_por_pagina;
+            
+            $consulta_count = "SELECT COUNT(*) AS total FROM inscripciones";
+            $resultado_count = mysqli_query($link, $consulta_count);
+            
+            if (!$resultado_count) {
+                echo "<p>Error: La consulta SQL para contar registros tiene un problema.</p>";
+                echo "<p>Consulta SQL: $consulta_count</p>";
+                exit();
+            }
+            
+            $fila_count = mysqli_fetch_assoc($resultado_count);
+            $total_registros = $fila_count['total'];
+            mysqli_free_result($resultado_count);
+            $total_paginas = ceil($total_registros / $registros_por_pagina);
+            
             $consulta = "SELECT i.id_inscripcion, a.nombre AS nombre_alumno, a.apellido AS apellido_alumno, a.dni AS dni_alumno, a.email AS email_alumno, a.telefono AS telefono_alumno,
             i.fecha_inscripcion, i.condicion_alumno, i.asistencia, i.nota,
             me.materia, me.tipo, me.fecha, me.profesor_titular, me.profesor_vocal1, me.profesor_vocal2
             FROM inscripciones i
             INNER JOIN alumnos a ON i.id_alumno = a.id_alumno
-            INNER JOIN mesas_examen me ON i.id_mesa = me.id_mesa";
-
-            if (!($resultado = mysqli_query($link, $consulta))) {
-              echo "<p>Error: La consulta SQL tiene un problema, verificar.</p> <br>";
-              echo "<p>$consulta</p>";
-              exit();
+            INNER JOIN mesas_examen me ON i.id_mesa = me.id_mesa LIMIT $inicio, $registros_por_pagina";
+            
+            $resultado = mysqli_query($link, $consulta);
+            
+            if (!$resultado) {
+                echo "<p>Error: La consulta SQL para obtener registros paginados tiene un problema.</p>";
+                echo "<p>Consulta SQL: $consulta</p>";
+                exit();
             }
-
+            
+            if ($total_paginas > 1) {
+                echo "<ul class='pagination justify-content-center'>";
+                for ($i = 1; $i <= $total_paginas; $i++) {
+                    echo "<li class='page-item " . ($pagina_actual == $i ? 'active' : '') . "'><a class='page-link' href='?pagina=$i'>$i</a></li>";
+                }
+                echo "</ul>";
+            }
+            
             while ($row = mysqli_fetch_row($resultado)) {
               echo "<tr>";
               echo "<td>$row[0]</td>"; // ID de la inscripción
@@ -144,6 +172,8 @@
               echo "</tr>";
             }
             mysqli_free_result($resultado);
+            mysqli_close($link);
+
             ?>
 
           </tbody>
