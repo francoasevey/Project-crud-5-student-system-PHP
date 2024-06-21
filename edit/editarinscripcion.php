@@ -15,7 +15,7 @@
     <div class="nav-container">
       <nav class="navbar navbar-expand-lg">
         <div class="container">
-          <a class="navbar-brand" href="home.php">Instituto TSDS</a>
+          <a class="navbar-brand" href="../views/home.php">Instituto TSDS</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -30,7 +30,7 @@
                   <a class="dropdown-item" href="../list/listadoalumnosinscriptos.php">Listado de inscripciones</a>
                   <a class="dropdown-item" href="../list/filtradomaterias.php">Filtrado por Materias</a>
                   <a class="dropdown-item" href="../list/filtradoprofesores.php">Filtrado por Profesores</a>
-                  <a class="dropdown-item" href="home.php">Listado de Alumnos</a>
+                  <a class="dropdown-item" href="../views/home.php">Listado de Alumnos</a>
                   <a class="dropdown-item" href="../list/listadoalumnosporexamen.php">Listar Mesas de Examen con tribunales</a>
                 </div>
               </li>

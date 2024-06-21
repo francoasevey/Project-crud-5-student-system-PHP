@@ -3,7 +3,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
   include '../config/db-connection.php';
   $formID = $_POST["id"];
 
-  $consulta = "SELECT * FROM alumnos WHERE id_alumno='$formID'";
+  $consulta = "SELECT * FROM mesas_examen WHERE id_mesa='$formID'";
   if (!($resultado = mysqli_query($link, $consulta))) {
     echo "<div class='alert alert-danger' role='alert'>";
     echo "Error: La consulta SQL tiene un problema, verificar.<br>";
