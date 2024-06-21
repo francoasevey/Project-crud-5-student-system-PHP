@@ -125,28 +125,23 @@
               if (!$resultado) {
                 die("Error en la consulta SQL: " . mysqli_error($link));
               }
-              while ($row = mysqli_fetch_row($resultado)) {
-                echo "<tr>";
-                echo "<td>$row[0]</td>";
-                echo "<td>$row[1]</td>";
-                echo "<td>$row[2]</td>";
-                echo "<td>$row[3]</td>";
-                echo "<td>$row[4]</td>";
-                echo "<td>$row[5]</td>";
-                echo "<td>$row[6]</td>";
-                echo "<td>$row[7]</td>";
-                echo "<td>$row[8]</td>";
-                echo "<td>$row[9]</td>";
-                echo "<td>$row[10]</td>";
-                echo "<td>$row[11]</td>";
-                echo "<td>$row[12]</td>";
-                echo "</tr>";
+              if (isset($resultado)) {
+                if (mysqli_num_rows($resultado) > 0) {
+                    while ($row = mysqli_fetch_row($resultado)) {
+                        echo "<tr>";
+                        for ($i = 0; $i < count($row); $i++) {
+                            echo "<td>{$row[$i]}</td>";
+                        }
+                        echo "</tr>";
+                    }
+                    mysqli_free_result($resultado);
+                } else {
+                    echo '<tr><td colspan="13" class="text-center">No hay Resultados de la Búsqueda.</td></tr>';
+                }
+                mysqli_close($link);
               }
-
-              mysqli_free_result($resultado);
-              mysqli_close($link);
             } else {
-              echo "<tr><td colspan='8' class='text-center'>Por favor, introduzca un término de búsqueda.</td></tr>";
+              echo "<tr><td colspan='13' class='text-center'>Por favor, introduzca un término de búsqueda.</td></tr>";
             }
             ?>
           </tbody>
