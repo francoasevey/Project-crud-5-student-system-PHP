@@ -7,6 +7,7 @@
   <title>Instituto TSDS</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="../css/home.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
@@ -77,6 +78,8 @@
               <th>Profesor Vocal 1</th>
               <th>Profesor Vocal 2</th>
               <th>Total Alumnos</th>
+              <th>Eliminar</th>
+              <th>Modificar</th>
             </tr>
           </thead>
           <tbody>
@@ -105,6 +108,23 @@
               echo "<td>{$row['profesor_vocal1']}</td>";
               echo "<td>{$row['profesor_vocal2']}</td>";
               echo "<td>{$row['total_alumnos']}</td>";
+              echo "<td>
+              
+            <form method='post' action='../delete/eliminarinscripcion.php'>
+                <input type='hidden' name='id' value='$row[id_mesa]'>
+                <button type='submit' class='btn btn-danger'>
+                 <i class='fas fa-trash-alt'></i>
+                </button>
+            </form>
+          </td>";
+              echo "<td>
+            <form method='post' action='../edit/editarinscripcion.php'>
+                <input type='hidden' name='id' value='$row[id_mesa]'>
+                <button type='submit' class='btn btn-warning'>
+                 <i class='fas fa-edit'></i>
+                </button>
+            </form>
+          </td>";
               echo "</tr>";
             }
 
