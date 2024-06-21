@@ -81,14 +81,34 @@
           <tbody>
             <?php
             include '../config/db-connection.php';
+            
+            $registros_por_pagina = 10;
+    $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+    $inicio = ($pagina_actual - 1) * $registros_por_pagina;
 
-            $currentDate = date('Y-m-d'); // Obtener la fecha actual
-            $consulta = "SELECT * FROM mesas_examen WHERE fecha <= '$currentDate'";
-            if (!($resultado = mysqli_query($link, $consulta))) {
-              echo "<p>Error: La consulta SQL tiene un problema, verificar.</p> <br>";
-              echo "<p>$consulta</p>";
-              exit();
-            }
+    $currentDate = date('Y-m-d'); // Obtener la fecha actual
+    $consulta_count = "SELECT COUNT(*) as total FROM mesas_examen WHERE fecha <= '$currentDate'";
+    $resultado_count = mysqli_query($link, $consulta_count);
+    $fila_count = mysqli_fetch_assoc($resultado_count);
+    $total_registros = $fila_count['total'];
+    mysqli_free_result($resultado_count);
+
+    $total_paginas = ceil($total_registros / $registros_por_pagina);
+
+    $consulta = "SELECT * FROM mesas_examen WHERE fecha <= '$currentDate' LIMIT $inicio, $registros_por_pagina";
+    if (!($resultado = mysqli_query($link, $consulta))) {
+        echo "<p>Error: La consulta SQL tiene un problema, verificar.</p> <br>";
+        echo "<p>$consulta</p>";
+        exit();
+    }
+
+    if ($total_paginas > 1) {
+        echo "<ul class='pagination justify-content-center'>";
+        for ($i = 1; $i <= $total_paginas; $i++) {
+            echo "<li class='page-item " . ($pagina_actual == $i ? 'active' : '') . "'><a class='page-link' href='?pagina=$i'>$i</a></li>";
+        }
+        echo "</ul>";
+    }
 
             while ($row = mysqli_fetch_assoc($resultado)) {
               echo "<tr>";
@@ -103,6 +123,8 @@
             }
 
             mysqli_free_result($resultado);
+            mysqli_close($link);
+
             ?>
           </tbody>
         </table>
