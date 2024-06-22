@@ -71,27 +71,27 @@
             <div class="form-row">
               <div class="form-group col-sm-6">
                 <label for="nombre">Nombre:</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" required>
               </div>
               <div class="form-group col-sm-6">
                 <label for="apellido">Apellido:</label>
-                <input type="text" class="form-control" id="apellido" name="apellido" required>
+                <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido" required>
               </div>
             </div>
             <div class="form-row">
               <div class="form-group col-sm-6">
                 <label for="dni">DNI:</label>
-                <input type="number" class="form-control" id="dni" name="dni" min="0" required>
+                <input type="number" class="form-control" id="dni" name="dni" min="0" placeholder="DNI" required>
               </div>
               <div class="form-group col-sm-6">
                 <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" required>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
               </div>
             </div>
             <div class="form-row">
               <div class="form-group col-sm-6">
                 <label for="telefono">Telefono:</label>
-                <input type="number" class="form-control" id="telefono" name="telefono" min="0" required>
+                <input type="number" class="form-control" id="telefono" name="telefono" min="0" placeholder="Telefono"required>
               </div>
             </div>
 
