@@ -64,7 +64,7 @@
       </nav>
     </div>
     <div class="container">
-    <div class="table-container">
+      <div class="table-container">
         <div class="container">
           <h2 class="card-title text-center mt-4 mb-4"><strong>Crear Inscripción</strong></h2>
           <?php
@@ -72,8 +72,7 @@
           $consulta = "SELECT i.*, a.nombre AS nombre_alumno, a.apellido AS apellido_alumno, a.dni AS dni_alumno, a.email AS email_alumno, a.telefono AS telefono_alumno, me.fecha AS fecha_mesa, me.materia AS materia_mesa, me.tipo AS tipo_mesa, me.profesor_titular, me.profesor_vocal1, me.profesor_vocal2
                             FROM inscripciones i
                             INNER JOIN alumnos a ON i.id_alumno = a.id_alumno
-                            INNER JOIN mesas_examen me ON i.id_mesa = me.id_mesa
-                            WHERE i.id_inscripcion";
+                            INNER JOIN mesas_examen me ON i.id_mesa = me.id_mesa";
 
           if (!($resultado = mysqli_query($link, $consulta))) {
             echo "<div class='alert alert-danger' role='alert'>";
@@ -93,6 +92,11 @@
             $materias_inscritas[] = $materia['id_mesa'];
           }
 
+          $alumnosNombre = mysqli_query($link, "SELECT id_alumno, nombre FROM alumnos");
+          $apellido = mysqli_query($link, "SELECT id_alumno, apellido FROM alumnos");
+          $dni = mysqli_query($link, "SELECT id_alumno, dni FROM alumnos");
+          $email = mysqli_query($link, "SELECT id_alumno, email FROM alumnos");
+          $telefono = mysqli_query($link, "SELECT id_alumno, telefono FROM alumnos");
 
           $materias = mysqli_query($link, "SELECT id_mesa, materia FROM mesas_examen");
           $profesortitular = mysqli_query($link, "SELECT id_mesa, profesor_titular FROM mesas_examen");
@@ -104,35 +108,44 @@
             <input type="hidden" name="id" value="<?php echo $row['id_inscripcion']; ?>">
 
             <div class="form-row">
-            <div class="form-group col-sm-6">
+              <div class="form-group col-md-6">
                 <label for="nombre">Nombre:</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" required>
+                <select class="form-control" id="nombre" name="nombre" required>
+                  <option value="" disabled>Seleccione una Materia</option>
+                  <?php while ($materia = mysqli_fetch_assoc($alumnosNombre)) : ?>
+                    <?php if (!in_array($materia['id_alumno'], $materias_inscritas) || $materia['id_alumno'] == $row['id_alumno']) : ?>
+                      <option value="<?php echo $materia['id_alumno']; ?>" <?php echo ($materia['id_alumno'] == $row['id_alumno']) ? 'selected' : ''; ?>>
+                        <?php echo $materia['nombre']; ?>
+                      </option>
+                    <?php endif; ?>
+                  <?php endwhile; ?>
+                </select>
               </div>
               <div class="form-group col-sm-6">
                 <label for="apellido">Apellido:</label>
-                <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido" required>
+                <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido" readonly>
               </div>
             </div>
 
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="dni">DNI:</label>
-                <input type="text" class="form-control" id="dni" name="dni" value="<?php echo $row['dni_alumno']; ?>" readonly>
+                <input type="text" class="form-control" id="dni" name="dni" placeholder="DNI" readonly>
               </div>
               <div class="form-group col-md-6">
                 <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" value="<?php echo $row['email_alumno']; ?>" readonly>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email" readonly>
               </div>
             </div>
 
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="telefono">Teléfono:</label>
-                <input type="text" class="form-control" id="telefono" name="telefono" value="<?php echo $row['telefono_alumno']; ?>" readonly>
+                <input type="number" class="form-control" id="telefono" name="telefono" placeholder="Telefono" readonly>
               </div>
               <div class="form-group col-md-6">
                 <label for="fecha_inscripcion">Fecha Inscripción:</label>
-                <input type="date" class="form-control" id="fecha_inscripcion" name="fecha_inscripcion" value="<?php echo $row['fecha_inscripcion']; ?>" required>
+                <input type="date" class="form-control" id="fecha_inscripcion" name="fecha_inscripcion" required>
               </div>
             </div>
 
@@ -140,15 +153,17 @@
               <div class="form-group col-md-6">
                 <label for="condicion_alumno">Condicion Alumno:</label>
                 <select class="form-control" id="condicion_alumno" name="condicion_alumno" required>
-                  <option value="Regular" <?php echo ($row['condicion_alumno'] == 'Regular') ? 'selected' : ''; ?>>Regular</option>
-                  <option value="Libre" <?php echo ($row['condicion_alumno'] == 'Libre') ? 'selected' : ''; ?>>Libre</option>
+                  <option value="" disabled selected>Condicion Alumno</option>
+                  <option value="Regular">Regular</option>
+                  <option value="Libre">Libre</option>
                 </select>
               </div>
               <div class="form-group col-md-6">
                 <label for="asistencia">Asistencia:</label>
                 <select class="form-control" id="asistencia" name="asistencia" required>
-                  <option value="Presente" <?php echo ($row['asistencia'] == 'Presente') ? 'selected' : ''; ?>>Presente</option>
-                  <option value="Ausente" <?php echo ($row['asistencia'] == 'Ausente') ? 'selected' : ''; ?>>Ausente</option>
+                  <option value="" disabled selected>Asistencia</option>
+                  <option value="Presente">Presente</option>
+                  <option value="Ausente">Ausente</option>
                 </select>
               </div>
             </div>
@@ -156,7 +171,7 @@
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="nota">Nota:</label>
-                <input type="number" class="form-control" id="nota" name="nota" max="10" min="1" value="<?php echo $row['nota']; ?>" required>
+                <input type="number" class="form-control" id="nota" name="nota" max="10" min="1" placeholder="Nota" required>
               </div>
               <div class="form-group col-md-6">
                 <label for="fecha_mesa">Fecha Mesa:</label>
@@ -168,7 +183,7 @@
               <div class="form-group col-md-6">
                 <label for="materia">Materia:</label>
                 <select class="form-control" id="materia" name="materia" required>
-                  <option value="" disabled>Seleccione una Materia</option>
+                  <option value="" selected disabled>Seleccione una Materia</option>
                   <?php while ($materia = mysqli_fetch_assoc($materias)) : ?>
                     <?php if (!in_array($materia['id_mesa'], $materias_inscritas) || $materia['id_mesa'] == $row['id_mesa']) : ?>
                       <option value="<?php echo $materia['id_mesa']; ?>" <?php echo ($materia['id_mesa'] == $row['id_mesa']) ? 'selected' : ''; ?>>
@@ -176,6 +191,8 @@
                       </option>
                     <?php endif; ?>
                   <?php endwhile; ?>
+                </select>
+
                 </select>
               </div>
               <div class="form-group col-md-6">
@@ -225,6 +242,7 @@
     </footer>
   </div>
 
+  <script src="../add/getAlumnos.js"></script>
   <script src="../edit/getMaterias.js"></script>
   <script src="../add/botoneditinscripcion.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
