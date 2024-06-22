@@ -69,10 +69,7 @@
           <h2 class="card-title text-center mt-4 mb-4"><strong>Crear Inscripción</strong></h2>
           <?php
           include '../config/db-connection.php';
-          $consulta = "SELECT i.*, a.nombre AS nombre_alumno, a.apellido AS apellido_alumno, a.dni AS dni_alumno, a.email AS email_alumno, a.telefono AS telefono_alumno, me.fecha AS fecha_mesa, me.materia AS materia_mesa, me.tipo AS tipo_mesa, me.profesor_titular, me.profesor_vocal1, me.profesor_vocal2
-                            FROM inscripciones i
-                            INNER JOIN alumnos a ON i.id_alumno = a.id_alumno
-                            INNER JOIN mesas_examen me ON i.id_mesa = me.id_mesa";
+          $consulta = "SELECT * FROM alumnos, mesas_examen";
 
           if (!($resultado = mysqli_query($link, $consulta))) {
             echo "<div class='alert alert-danger' role='alert'>";
@@ -93,19 +90,11 @@
           }
 
           $alumnosNombre = mysqli_query($link, "SELECT id_alumno, nombre FROM alumnos");
-          $apellido = mysqli_query($link, "SELECT id_alumno, apellido FROM alumnos");
-          $dni = mysqli_query($link, "SELECT id_alumno, dni FROM alumnos");
-          $email = mysqli_query($link, "SELECT id_alumno, email FROM alumnos");
-          $telefono = mysqli_query($link, "SELECT id_alumno, telefono FROM alumnos");
 
           $materias = mysqli_query($link, "SELECT id_mesa, materia FROM mesas_examen");
-          $profesortitular = mysqli_query($link, "SELECT id_mesa, profesor_titular FROM mesas_examen");
-          $profesorvocal1 = mysqli_query($link, "SELECT id_mesa, profesor_vocal1 FROM mesas_examen");
-          $profesorvocal2 = mysqli_query($link, "SELECT id_mesa, profesor_vocal2 FROM mesas_examen");
-
+          
           ?>
           <form method="post" action="editarinscripcionproceso.php">
-            <input type="hidden" name="id" value="<?php echo $row['id_inscripcion']; ?>">
 
             <div class="form-row">
               <div class="form-group col-md-6">
@@ -174,13 +163,6 @@
                 <input type="number" class="form-control" id="nota" name="nota" max="10" min="1" placeholder="Nota" required>
               </div>
               <div class="form-group col-md-6">
-                <label for="fecha_mesa">Fecha Mesa:</label>
-                <input type="date" class="form-control" id="fecha_mesa" name="fecha_mesa" value="<?php echo $row['fecha_mesa']; ?>" readonly>
-              </div>
-            </div>
-
-            <div class="form-row">
-              <div class="form-group col-md-6">
                 <label for="materia">Materia:</label>
                 <select class="form-control" id="materia" name="materia" required>
                   <option value="" selected disabled>Seleccione una Materia</option>
@@ -192,8 +174,13 @@
                     <?php endif; ?>
                   <?php endwhile; ?>
                 </select>
+              </div>
+            </div>
 
-                </select>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="fecha">Fecha Mesa:</label>
+                <input type="date" class="form-control" id="fecha" name="fecha" value="<?php echo $row['fecha']; ?>" readonly>
               </div>
               <div class="form-group col-md-6">
                 <label for="profesor_titular">Profesor Titular:</label>
