@@ -61,10 +61,10 @@
               <li class="nav-item dropdown">
                 <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> + </button>
                 <div class="dropdown-menu" aria-labelledby="mesasDropdown">
-                  <a class="dropdown-item" href="crearmesaexamen.php">Registrar Mesa de Examen</a>
-                  <a class="dropdown-item" href="crearincripcion.php">Registrar Inscripcion</a>
-                  <a class="dropdown-item" href="crearalumno.php">Registrar Alumno</a>
-                  <a class="dropdown-item" href="crearusuario.php">Registrar Usuarios</a>
+                  <a class="dropdown-item" href="../add/crearmesaexamen.php">Registrar Mesa de Examen</a>
+                  <a class="dropdown-item" href="../add/crearinscripcion.php">Registrar Inscripcion</a>
+                  <a class="dropdown-item" href="../add/crearalumno.php">Registrar Alumno</a>
+                  <a class="dropdown-item" href="../add/crearusuario.php">Registrar Usuarios</a>
                 </div>
               </li>
               <li class="nav-item">
