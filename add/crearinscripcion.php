@@ -89,7 +89,7 @@
             $materias_inscritas[] = $materia['id_mesa'];
           }
 
-          $alumnosNombre = mysqli_query($link, "SELECT id_alumno, nombre FROM alumnos");
+          $alumnosNombre = mysqli_query($link, "SELECT id_alumno, nombre, apellido, dni, email, telefono FROM alumnos");
 
           $materias = mysqli_query($link, "SELECT id_mesa, materia FROM mesas_examen");
           
@@ -101,10 +101,10 @@
                 <label for="nombre">Nombre:</label>
                 <select class="form-control" id="nombre" name="nombre" required>
                   <option value="" disabled>Seleccione una Materia</option>
-                  <?php while ($materia = mysqli_fetch_assoc($alumnosNombre)) : ?>
-                    <?php if (!in_array($materia['id_alumno'], $materias_inscritas) || $materia['id_alumno'] == $row['id_alumno']) : ?>
-                      <option value="<?php echo $materia['id_alumno']; ?>" <?php echo ($materia['id_alumno'] == $row['id_alumno']) ? 'selected' : ''; ?>>
-                        <?php echo $materia['nombre']; ?>
+                  <?php while ($alumno = mysqli_fetch_assoc($alumnosNombre)) : ?>
+                    <?php if (!in_array($alumno['id_alumno'], $materias_inscritas) || $alumno['id_alumno'] == $row['id_alumno']) : ?>
+                      <option value="<?php echo $alumno['id_alumno']; ?>" <?php echo ($alumno['id_alumno'] == $row['id_alumno']) ? 'selected' : ''; ?>>
+                        <?php echo $alumno['nombre']; ?>
                       </option>
                     <?php endif; ?>
                   <?php endwhile; ?>
@@ -180,7 +180,7 @@
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="fecha">Fecha Mesa:</label>
-                <input type="date" class="form-control" id="fecha" name="fecha" value="<?php echo $row['fecha']; ?>" readonly>
+                <input type="date" class="form-control" id="fecha_mesa" name="fecha" value="<?php echo $row['fecha']; ?>" readonly>
               </div>
               <div class="form-group col-md-6">
                 <label for="profesor_titular">Profesor Titular:</label>
