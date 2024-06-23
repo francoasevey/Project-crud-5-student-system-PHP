@@ -69,44 +69,30 @@
           <h2 class="card-title text-center mt-4 mb-4"><strong>Crear Inscripción</strong></h2>
           <?php
           include '../config/db-connection.php';
-          $consulta = "SELECT * FROM alumnos, mesas_examen";
+          $consultaAlumnos = "SELECT id_alumno, nombre, apellido, dni, email, telefono FROM alumnos";
+          $consultaMaterias = "SELECT id_mesa, fecha, materia, tipo, profesor_titular, profesor_vocal1, profesor_vocal2 FROM mesas_examen";
 
-          if (!($resultado = mysqli_query($link, $consulta))) {
-            echo "<div class='alert alert-danger' role='alert'>";
-            echo "Error: La consulta SQL tiene un problema, verificar.<br>";
-            echo "$consulta";
-            echo "</div>";
-            exit();
+          $alumnosNombre = mysqli_query($link, $consultaAlumnos);
+          $materiasNombre = mysqli_query($link, $consultaMaterias);
+
+          if (!$alumnosNombre || !$materiasNombre) {
+              echo "<div class='alert alert-danger' role='alert'>";
+              echo "Error: La consulta SQL tiene un problema, verificar.<br>";
+              echo mysqli_error($link);
+              echo "</div>";
+              exit();
           }
-
-          $row = mysqli_fetch_assoc($resultado);
-          $id_alumno = $row['id_alumno'];
-
-          $materias_inscritas_consulta = "SELECT id_mesa FROM inscripciones WHERE id_alumno = '$id_alumno'";
-          $materias_inscritas_result = mysqli_query($link, $materias_inscritas_consulta);
-          $materias_inscritas = [];
-          while ($materia = mysqli_fetch_assoc($materias_inscritas_result)) {
-            $materias_inscritas[] = $materia['id_mesa'];
-          }
-
-          $alumnosNombre = mysqli_query($link, "SELECT id_alumno, nombre, apellido, dni, email, telefono FROM alumnos");
-
-          $materias = mysqli_query($link, "SELECT id_mesa, materia FROM mesas_examen");
-          
           ?>
           <form method="post" action="editarinscripcionproceso.php">
-
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="nombre">Nombre:</label>
-                <select class="form-control" id="nombre" name="nombre" required>
-                  <option value="" disabled>Seleccione una Materia</option>
+                <select class="form-control" id="nombre" name="nombre" required onchange="cargarDatosAlumno()">
+                  <option value="" disabled selected>Seleccione un Alumno</option>
                   <?php while ($alumno = mysqli_fetch_assoc($alumnosNombre)) : ?>
-                    <?php if (!in_array($alumno['id_alumno'], $materias_inscritas) || $alumno['id_alumno'] == $row['id_alumno']) : ?>
-                      <option value="<?php echo $alumno['id_alumno']; ?>" <?php echo ($alumno['id_alumno'] == $row['id_alumno']) ? 'selected' : ''; ?>>
-                        <?php echo $alumno['nombre']; ?>
-                      </option>
-                    <?php endif; ?>
+                    <option value="<?php echo $alumno['id_alumno']; ?>">
+                      <?php echo $alumno['nombre']; ?>
+                    </option>
                   <?php endwhile; ?>
                 </select>
               </div>
@@ -163,39 +149,36 @@
                 <input type="number" class="form-control" id="nota" name="nota" max="10" min="1" placeholder="Nota" required>
               </div>
               <div class="form-group col-md-6">
-                <label for="materia">Materia:</label>
-                <select class="form-control" id="materia" name="materia" required>
-                  <option value="" selected disabled>Seleccione una Materia</option>
-                  <?php while ($materia = mysqli_fetch_assoc($materias)) : ?>
-                    <?php if (!in_array($materia['id_mesa'], $materias_inscritas) || $materia['id_mesa'] == $row['id_mesa']) : ?>
-                      <option value="<?php echo $materia['id_mesa']; ?>" <?php echo ($materia['id_mesa'] == $row['id_mesa']) ? 'selected' : ''; ?>>
-                        <?php echo $materia['materia']; ?>
-                      </option>
-                    <?php endif; ?>
-                  <?php endwhile; ?>
-                </select>
+              <label for="materia">Materia:</label>
+              <select class="form-control" id="materia" name="materia" required onchange="cargarDatosMateria()">
+                <option value="" disabled selected>Seleccione una Materia</option>
+                <?php while ($materia = mysqli_fetch_assoc($materiasNombre)) : ?>
+                  <option value="<?php echo $materia['id_mesa']; ?>">
+                    <?php echo $materia['materia']; ?>
+                  </option>
+                <?php endwhile; ?>
+              </select>
               </div>
             </div>
 
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="fecha">Fecha Mesa:</label>
-                <input type="date" class="form-control" id="fecha_mesa" name="fecha" value="<?php echo $row['fecha']; ?>" readonly>
+                <input type="date" class="form-control" id="fecha" name="fecha" placeholder="Fecha" readonly>
               </div>
               <div class="form-group col-md-6">
                 <label for="profesor_titular">Profesor Titular:</label>
-                <input type="text" class="form-control" id="profesor_titular" name="profesor_titular" value="<?php echo $row['profesor_titular']; ?>" readonly>
+                <input type="text" class="form-control" id="profesor_titular" name="profesor_titular" placeholder="Profesor Titular" readonly>
               </div>
             </div>
-
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="profesor_vocal1">Profesor Vocal 1:</label>
-                <input type="text" class="form-control" id="profesor_vocal1" name="profesor_vocal1" value="<?php echo $row['profesor_vocal1']; ?>" readonly>
+                <input type="text" class="form-control" id="profesor_vocal1" name="profesor_vocal1" placeholder="Profesor Vocal 1" readonly>
               </div>
               <div class="form-group col-md-6">
                 <label for="profesor_vocal2">Profesor Vocal 2:</label>
-                <input type="text" class="form-control" id="profesor_vocal2" name="profesor_vocal2" value="<?php echo $row['profesor_vocal2']; ?>" readonly>
+                <input type="text" class="form-control" id="profesor_vocal2" name="profesor_vocal2" placeholder="Profesor Vocal 2" readonly>
               </div>
             </div>
 
@@ -207,7 +190,6 @@
                 <button type="button" class="btn btn-secondary" onclick="window.location.href='../views/home.php'">Volver al Listado</button>
               </div>
             </div>
-
           </form>
         </div>
 
@@ -229,8 +211,12 @@
     </footer>
   </div>
 
+  <script src="../add/getAlumnoAdata.js"></script>
   <script src="../add/getAlumnos.js"></script>
-  <script src="../edit/getMaterias.js"></script>
+  <script src="../add/getMateriasData.php"></script>
+  <script src="../add/getMaterias.js"></script>
+  <!--
+  -->
   <script src="../add/botoneditinscripcion.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
