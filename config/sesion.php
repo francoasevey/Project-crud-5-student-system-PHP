@@ -9,7 +9,6 @@
 
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
 </head>
-
 <body>
   <!--<header>
         <h2 class="logo">TDS</h2>
@@ -73,6 +72,20 @@
           <input type="password" name="clave" id="clave" required>
           <label for="#">Contraseña</label>
         </div>
+        <div class="contenedor-input">
+          <span class="icono"><i class="ri-user-fill"></i></span>
+          <input type="text" name="perfil" id="perfil" value="operador" readonly>
+          <label for="#">Perfil</label>
+        </div>
+        <!--<div class="contenedor-input">
+          <span class="icono"><i class="ri-user-fill"></i></span>
+          <select name="perfil" id="perfil" required>
+            <option value="">Selecciona un perfil</option>
+            <option value="administrador">Administrador</option>
+            <option value="operador">Operador</option>
+          </select>
+          <label for="#">Perfil</label>
+        </div>-->
         <div class="recordar">
           <label for="#"><input type="checkbox" name="checkbox" id="checkbox">
             Acepto los Terminos y Condiciones

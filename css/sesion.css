@@ -75,7 +75,7 @@ header{
 .fondo{
     position: relative;
     width: 400px;
-    height: 440px;
+    min-height: 520px; /* Ajusta la altura mínima según sea necesario */
     background: transparent;
     border: 2px solid rgba(255, 255, 255, .5);
     border-radius: 20px;
@@ -219,3 +219,12 @@ header{
 .registrar p a:hover{
     text-decoration: underline;
 }
+.contenedor-input {
+    text-align: center;
+  }
+
+  .contenedor-input input[type="text"] {
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+  }

@@ -5,6 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $formContraseña = $_POST["clave"];
     $formEmail = $_POST["email"];
     $formRol = $_POST["perfil"];
+    //$formRol = "operador";
 
     // Conexión a la base de datos (incluir tu archivo de conexión)
     include '../config/db-connection.php';
