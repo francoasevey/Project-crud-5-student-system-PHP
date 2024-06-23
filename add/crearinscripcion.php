@@ -83,7 +83,7 @@
             exit();
           }
           ?>
-          <form method="post" action="editarinscripcionproceso.php">
+          <form method="post" action="crearinscripcionproceso.php">
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="nombre">Nombre:</label>
