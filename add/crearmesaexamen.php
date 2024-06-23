@@ -98,8 +98,8 @@
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">
-                <label for="profesor_vocal1">Profesor Vocal 1:</label>
-                <input type="text" class="form-control" id="profesor_vocal1" name="profesor_vocal1" placeholder="Profesor Vocal 1" required>
+                <label for="profesor_vocal2">Profesor Vocal 2:</label>
+                <input type="text" class="form-control" id="profesor_vocal2" name="profesor_vocal2" placeholder="Profesor Vocal 2" required>
               </div>
             </div>
 
@@ -131,7 +131,7 @@
     </footer>
   </div>
 
-  <script src="../add/botoncreate.js"></script>
+  <script src="../add/botoncreatemesa.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
