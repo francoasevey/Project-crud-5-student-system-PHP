@@ -7,14 +7,10 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../css/home.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <!--<?php
+  <?php
   include_once '../config/sesionManager.php';
   checkSession();
   $perfil = getUserProfile();
-  ?>-->
-  <?php
-  include '../config/db-connection.php';
-  include '../config/sesionOpenBuscador.php';
   ?>
 </head>
 
@@ -65,13 +61,20 @@
                 </div>
               </li>
               <li class="nav-item dropdown">
-                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> + </button>
-                <div class="dropdown-menu" aria-labelledby="mesasDropdown">
-                  <a class="dropdown-item" href="../add/crearmesaexamen.php">Registrar Mesa de Examen</a>
-                  <a class="dropdown-item" href="../add/crearinscripcion.php">Registrar Inscripcion</a>
-                  <a class="dropdown-item" href="../add/crearalumno.php">Registrar Alumno</a>
-                  <a class="dropdown-item" href="../add/addusuario.php">Registrar Usuarios</a>
-                </div>
+                <?php if (isUserAdmin()): ?>
+                  <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> + </button>
+                  <div class="dropdown-menu" aria-labelledby="mesasDropdown">
+                    <a class="dropdown-item" href="../add/crearmesaexamen.php">Registrar Mesa de Examen</a>
+                    <a class="dropdown-item" href="../add/crearinscripcion.php">Registrar Inscripcion</a>
+                    <a class="dropdown-item" href="../add/crearalumno.php">Registrar Alumno</a>
+                    <a class="dropdown-item" href="../add/addusuario.php">Registrar Usuarios</a>
+                  </div>
+                <?php elseif (isUserOperator()): ?>
+                  <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> + </button>
+                  <div class="dropdown-menu" aria-labelledby="mesasDropdown">
+                    <a class="dropdown-item" href="../add/crearinscripcion.php">Registrar Inscripcion</a>
+                  </div>
+                <?php endif; ?>
               </li>
               <li class="nav-item">
                 <form method="post" action="../views/busqueda.php" class="form-inline my-2 my-lg-0">
@@ -85,12 +88,8 @@
                   <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
                 </form>
               </li>
-              <li class="nav-item">
-                <?php echo $userNav; ?>
-              </li>
-              <!--<li class="nav-item">
                 <?php include '../config/sesionOpen.php'; ?>
-              </li>-->
+              </li>
             </ul>
           </div>
         </div>
