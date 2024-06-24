@@ -88,9 +88,17 @@ $perfil = getUserProfile();
                 <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
               </div>
               <div class="form-group col-sm-6">
-                <label for="perfil">perfil:</label>
+                <label for="perfil">Perfil:</label>
                 <input type="text" class="form-control" id="perfil" name="perfil" min="0" placeholder="perfil" value="operador" readonly>
               </div>
+              <!--<div class="form-group col-md-6">
+                <label for="perfil">Perfil:</label>
+                <select class="form-control" id="perfil" name="perfil" required>
+                  <option value="" disabled selected>Perfil</option>
+                  <option value="administrativo">Administrativo</option>
+                  <option value="operador">Operador</option>
+                </select>
+              </div>-->
             </div>
             <div class="form-row">
               <div class="form-group col-md-6 text-center">
