@@ -6,6 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Instituto TSDS</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+
   <link rel="stylesheet" type="text/css" href="../css/home.css">
 </head>
 
@@ -39,7 +43,7 @@
                   <a class="dropdown-item" href="../add/crearmesaexamen.php">Registrar Mesa de Examen</a>
                   <a class="dropdown-item" href="../add/crearinscripcion.php">Registrar Inscripcion</a>
                   <a class="dropdown-item" href="../add/crearalumno.php">Registrar Alumno</a>
-                  <a class="dropdown-item" href="../add/crearusuario.php">Registrar Usuarios</a>
+                  <a class="dropdown-item" href="../add/addusuario.php">Registrar Usuarios</a>
                 </div>
               </li>
               <li class="nav-item">
@@ -55,7 +59,7 @@
                 </form>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Cerrar Sesión</a>
+                <?php include '../config/sesionOpen.php'; ?>
               </li>
             </ul>
           </div>
@@ -93,7 +97,7 @@
               echo "<p>$consulta</p>";
               exit();
             }
-            
+
             $consulta_total = "SELECT COUNT(*) as total FROM alumnos";
             $resultado_total = mysqli_query($link, $consulta_total);
             $fila_total = mysqli_fetch_assoc($resultado_total);
@@ -101,13 +105,13 @@
             mysqli_free_result($resultado_total);
 
             $total_paginas = ceil($total_registros / $registros_por_pagina);
-              if ($total_paginas > 1) {
-                  echo "<ul class='pagination justify-content-center'>";
-                  for ($i = 1; $i <= $total_paginas; $i++) {
-                      echo "<li class='page-item " . ($pagina_actual == $i ? 'active' : '') . "'><a class='page-link' href='?pagina=$i'>$i</a></li>";
-                  }
-                  echo "</ul>";
+            if ($total_paginas > 1) {
+              echo "<ul class='pagination justify-content-center'>";
+              for ($i = 1; $i <= $total_paginas; $i++) {
+                echo "<li class='page-item " . ($pagina_actual == $i ? 'active' : '') . "'><a class='page-link' href='?pagina=$i'>$i</a></li>";
               }
+              echo "</ul>";
+            }
 
             while ($row = mysqli_fetch_row($resultado)) {
               echo "<tr>";
