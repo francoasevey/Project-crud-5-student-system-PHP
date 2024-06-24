@@ -9,6 +9,11 @@
   <link rel="stylesheet" type="text/css" href="../css/home.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
+<?php
+include_once '../config/sesionManager.php';
+checkSession();
+$perfil = getUserProfile();
+?>
 
 <body>
   <div class="background">
@@ -36,13 +41,20 @@
                 </div>
               </li>
               <li class="nav-item dropdown">
-                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> + </button>
-                <div class="dropdown-menu" aria-labelledby="mesasDropdown">
-                  <a class="dropdown-item" href="../add/crearmesaexamen.php">Registrar Mesa de Examen</a>
-                  <a class="dropdown-item" href="../add/crearinscripcion.php">Registrar Inscripcion</a>
-                  <a class="dropdown-item" href="../add/crearalumno.php">Registrar Alumno</a>
-                  <a class="dropdown-item" href="../add/addusuario.php">Registrar Usuarios</a>
-                </div>
+                <?php if (isUserAdmin()) : ?>
+                  <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> + </button>
+                  <div class="dropdown-menu" aria-labelledby="mesasDropdown">
+                    <a class="dropdown-item" href="../add/crearmesaexamen.php">Registrar Mesa de Examen</a>
+                    <a class="dropdown-item" href="../add/crearinscripcion.php">Registrar Inscripcion</a>
+                    <a class="dropdown-item" href="../add/crearalumno.php">Registrar Alumno</a>
+                    <a class="dropdown-item" href="../add/addusuario.php">Registrar Usuarios</a>
+                  </div>
+                <?php elseif (isUserOperator()) : ?>
+                  <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> + </button>
+                  <div class="dropdown-menu" aria-labelledby="mesasDropdown">
+                    <a class="dropdown-item" href="../add/crearinscripcion.php">Registrar Inscripcion</a>
+                  </div>
+                <?php endif; ?>
               </li>
               <li class="nav-item">
                 <form method="post" action="../views/busqueda.php" class="form-inline my-2 my-lg-0">
@@ -79,8 +91,10 @@
               <th>Profesor Vocal 1</th>
               <th>Profesor Vocal 2</th>
               <th>Total Alumnos</th>
-              <th>Eliminar</th>
-              <th>Modificar</th>
+              <?php if (isUserAdmin()) : ?>
+                <th>Eliminar</th>
+                <th>Modificar</th>
+              <?php endif; ?>
             </tr>
           </thead>
           <tbody>
@@ -93,11 +107,11 @@
 
             $consulta_count = "SELECT COUNT(*) AS total FROM mesas_examen";
             $resultado_count = mysqli_query($link, $consulta_count);
-            
+
             if (!$resultado_count) {
-                echo "<p>Error: La consulta SQL para contar registros tiene un problema.</p>";
-                echo "<p>Consulta SQL: $consulta_count</p>";
-                exit();
+              echo "<p>Error: La consulta SQL para contar registros tiene un problema.</p>";
+              echo "<p>Consulta SQL: $consulta_count</p>";
+              exit();
             }
 
             $fila_count = mysqli_fetch_assoc($resultado_count);
@@ -122,10 +136,10 @@
             if ($total_paginas > 1) {
               echo "<ul class='pagination justify-content-center'>";
               for ($i = 1; $i <= $total_paginas; $i++) {
-                  echo "<li class='page-item " . ($pagina_actual == $i ? 'active' : '') . "'><a class='page-link' href='?pagina=$i'>$i</a></li>";
+                echo "<li class='page-item " . ($pagina_actual == $i ? 'active' : '') . "'><a class='page-link' href='?pagina=$i'>$i</a></li>";
               }
               echo "</ul>";
-          }
+            }
 
             while ($row = mysqli_fetch_assoc($resultado)) {
               echo "<tr>";
@@ -137,23 +151,25 @@
               echo "<td>{$row['profesor_vocal1']}</td>";
               echo "<td>{$row['profesor_vocal2']}</td>";
               echo "<td>{$row['total_alumnos']}</td>";
+
+              if (isUserAdmin()) {
               echo "<td>
-              
-            <form method='post' action='../delete/eliminarmesa.php'>
-                <input type='hidden' name='id' value='$row[id_mesa]'>
-                <button type='submit' class='btn btn-danger'>
-                 <i class='fas fa-trash-alt'></i>
-                </button>
-            </form>
-          </td>";
+              <form method='post' action='../delete/eliminarmesa.php'>
+                  <input type='hidden' name='id' value='$row[id_mesa]'>
+                  <button type='submit' class='btn btn-danger'>
+                  <i class='fas fa-trash-alt'></i>
+                  </button>
+              </form>
+              </td>";
               echo "<td>
-            <form method='post' action='../edit/editarmesa.php'>
-                <input type='hidden' name='id' value='$row[id_mesa]'>
-                <button type='submit' class='btn btn-warning'>
-                 <i class='fas fa-edit'></i>
-                </button>
-            </form>
-          </td>";
+              <form method='post' action='../edit/editarmesa.php'>
+                  <input type='hidden' name='id' value='$row[id_mesa]'>
+                  <button type='submit' class='btn btn-warning'>
+                  <i class='fas fa-edit'></i>
+                  </button>
+              </form>
+              </td>";
+              }
               echo "</tr>";
             }
 
