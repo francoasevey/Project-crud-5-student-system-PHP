@@ -1,5 +1,4 @@
 
-// Función para cargar los datos del alumno seleccionado
 function cargarDatosAlumno() {
   var alumnoId = document.getElementById('nombre').value;
   fetch('getAlumnoData.php?id=' + alumnoId)
@@ -12,10 +11,8 @@ function cargarDatosAlumno() {
     })
     .catch(error => console.error('Error:', error));
 
-  // Llamar a la función para cargar las materias disponibles para el alumno
   cargarMateriasDisponibles(alumnoId);
 }
-// Función para cargar los datos de la materia seleccionada
 function cargarDatosMateria() {
   var materiaId = document.getElementById('materia').value;
   fetch('getMateriaData.php?id=' + materiaId)
@@ -29,7 +26,6 @@ function cargarDatosMateria() {
     .catch(error => console.error('Error:', error));
 }
 
-// Función para cargar las materias disponibles para el alumno seleccionado
 function cargarMateriasDisponibles(alumnoId) {
   fetch('getMateriasDisponibles.php?id=' + alumnoId)
     .then(response => response.json())
@@ -37,7 +33,6 @@ function cargarMateriasDisponibles(alumnoId) {
       var selectMateria = document.getElementById('materia');
       selectMateria.innerHTML = ''; // Limpiar opciones actuales
 
-      // Agregar la opción predeterminada
       var optionDefault = document.createElement('option');
       optionDefault.value = '';
       optionDefault.textContent = 'Seleccione una Materia';
@@ -45,7 +40,6 @@ function cargarMateriasDisponibles(alumnoId) {
       optionDefault.selected = true;
       selectMateria.appendChild(optionDefault);
 
-      // Agregar las opciones de materias disponibles
       data.forEach(materia => {
         var option = document.createElement('option');
         option.value = materia.id_mesa;
@@ -55,3 +49,12 @@ function cargarMateriasDisponibles(alumnoId) {
     })
     .catch(error => console.error('Error:', error));
 }
+
+/*var today = new Date().toISOString().split('T')[0];
+      if (materia.fecha < today) {
+        document.getElementById("nota").removeAttribute("readonly");
+        document.getElementById("botonProcesarInscripcion").removeAttribute("disabled");
+      } else {
+        document.getElementById("nota").setAttribute("readonly", true);
+        document.getElementById("botonProcesarInscripcion").setAttribute("disabled", true);
+      }*/

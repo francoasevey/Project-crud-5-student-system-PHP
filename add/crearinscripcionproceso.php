@@ -71,6 +71,23 @@
           echo "<p class='text-success'>¡Conexión exitosa a MYSQL! La base de datos $db_name está lista.</p>";
           echo "<p>Información del host: " . mysqli_get_host_info($link) . " </p>";
 
+          /*$query = "SELECT fecha FROM mesas_examen WHERE id_mesa = $id_mesa";
+          $result = mysqli_query($link, $query);
+          if (!$result) {
+            echo "Error: " . mysqli_error($link);
+            exit();
+          }
+
+          $mesa = mysqli_fetch_assoc($result);
+          $fecha_mesa = $mesa['fecha'];
+
+          if (date('Y-m-d') < $fecha_mesa) {
+            echo "<div class='alert alert-danger' role='alert'>";
+            echo "Error: No se puede cargar la nota ya que la fecha de la mesa aún no ha pasado.";
+            echo "</div>";
+            exit();
+          }*/
+
           $consulta = "INSERT INTO inscripciones (id_alumno, id_mesa, fecha_inscripcion, condicion_alumno, asistencia, nota) VALUES ('$id_alumno', '$id_mesa', '$fecha_inscripcion', '$condicion_alumno', '$asistencia','$nota')";
 
           if (!mysqli_query($link, $consulta)) {
