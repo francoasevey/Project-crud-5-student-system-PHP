@@ -32,6 +32,7 @@
                   <a class="dropdown-item" href="../list/filtradoprofesores.php">Filtrado por Profesores</a>
                   <a class="dropdown-item" href="../views/home.php">Listado de Alumnos</a>
                   <a class="dropdown-item" href="../list/listadoalumnosporexamen.php">Listar Mesas de Examen con tribunales</a>
+                  <a class="dropdown-item" href="../list/listausuarios.php">Listar Usuarios</a>
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -41,6 +42,7 @@
                   <a class="dropdown-item" href="../add/crearinscripcion.php">Registrar Inscripcion</a>
                   <a class="dropdown-item" href="../add/crearalumno.php">Registrar Alumno</a>
                   <a class="dropdown-item" href="../add/crearusuario.php">Registrar Usuarios</a>
+                  <a class="dropdown-item" href="../add/addusuario.php">Registrar Usuarios</a>
                 </div>
               </li>
               <li class="nav-item">
@@ -56,7 +58,7 @@
                 </form>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Cerrar Sesión</a>
+                <?php include '../config/sesionOpen.php'; ?>
               </li>
             </ul>
           </div>

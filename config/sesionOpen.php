@@ -12,3 +12,4 @@ if (isset($_SESSION["usuario"])) {
     echo '<a class="nav-link" href="../config/sesion.php"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>';
     echo '</li>';
 }
+?>

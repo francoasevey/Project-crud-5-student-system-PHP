@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Listar Alumnos por Materia</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../css/home.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
@@ -52,6 +52,7 @@
                   <a class="dropdown-item" href="../list/filtradoprofesores.php">Filtrado por Profesores</a>
                   <a class="dropdown-item" href="../views/home.php">Listado de Alumnos</a>
                   <a class="dropdown-item" href="../list/listadoalumnosporexamen.php">Listar Mesas de Examen con tribunales</a>
+                  <a class="dropdown-item" href="../list/listausuarios.php">Listar Usuarios</a>
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -60,7 +61,7 @@
                   <a class="dropdown-item" href="../add/crearmesaexamen.php">Registrar Mesa de Examen</a>
                   <a class="dropdown-item" href="../add/crearinscripcion.php">Registrar Inscripcion</a>
                   <a class="dropdown-item" href="../add/crearalumno.php">Registrar Alumno</a>
-                  <a class="dropdown-item" href="../add/crearusuario.php">Registrar Usuarios</a>
+                  <a class="dropdown-item" href="../add/addusuario.php">Registrar Usuarios</a>
                 </div>
               </li>
               <li class="nav-item">
@@ -76,7 +77,7 @@
                 </form>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Cerrar Sesión</a>
+                <?php include '../config/sesionOpen.php'; ?>
               </li>
             </ul>
           </div>
