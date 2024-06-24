@@ -1,5 +1,6 @@
 <?php
-session_start();
+include_once '../config/sesionManager.php';
+
 if (isset($_SESSION["usuario"])) {
     echo '<li class="nav-item">';
     echo '<span class="nav-link">Bienvenido, ' . $_SESSION["usuario"] . '</span>';
@@ -8,8 +9,6 @@ if (isset($_SESSION["usuario"])) {
     echo '<a class="nav-link" href="../config/logout.php"><i class="fas fa-sign-out-alt"></i></a>';
     echo '</li>';
 } else {
-    echo '<li class="nav-item">';
     echo '<a class="nav-link" href="../config/sesion.php"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>';
-    echo '</li>';
 }
 ?>

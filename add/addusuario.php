@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +9,11 @@
   <link rel="stylesheet" href="../css/formulario.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
-
+<?php
+include_once '../config/sesionManager.php';
+checkSession();
+$perfil = getUserProfile();
+?>
 <body>
   <div class="background">
     <div class="nav-container">
@@ -23,9 +26,7 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="listadosDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Listados
-                </a>
+                <a class="nav-link dropdown-toggle" href="#" id="listadosDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Listados </a>
                 <div class="dropdown-menu" aria-labelledby="listadosDropdown">
                   <a class="dropdown-item" href="../list/listadomesashabilitadas.php">Mesas de Exámenes Habilitadas</a>
                   <a class="dropdown-item" href="../list/listadoalumnosinscriptos.php">Listado de inscripciones</a>
@@ -37,28 +38,29 @@
                 </div>
               </li>
               <li class="nav-item dropdown">
-                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> + </button>
-                <div class="dropdown-menu" aria-labelledby="mesasDropdown">
-                  <a class="dropdown-item" href="../add/crearmesaexamen.php">Registrar Mesa de Examen</a>
-                  <a class="dropdown-item" href="../add/crearinscripcion.php">Registrar Inscripcion</a>
-                  <a class="dropdown-item" href="../add/crearalumno.php">Registrar Alumno</a>
-                  <a class="dropdown-item" href="../add/addusuario.php">Registrar Usuarios</a>
-                </div>
+                <?php if (isUserAdmin()): ?>
+                  <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> + </button>
+                  <div class="dropdown-menu" aria-labelledby="mesasDropdown">
+                    <a class="dropdown-item" href="../add/crearmesaexamen.php">Registrar Mesa de Examen</a>
+                    <a class="dropdown-item" href="../add/crearinscripcion.php">Registrar Inscripcion</a>
+                    <a class="dropdown-item" href="../add/crearalumno.php">Registrar Alumno</a>
+                    <a class="dropdown-item" href="../add/addusuario.php">Registrar Usuarios</a>
+                  </div>
+                <?php elseif (isUserOperator()): ?>
+                  <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> + </button>
+                  <div class="dropdown-menu" aria-labelledby="mesasDropdown">
+                    <a class="dropdown-item" href="../add/crearinscripcion.php">Registrar Inscripcion</a>
+                  </div>
+                <?php endif; ?>
               </li>
               <li class="nav-item">
                 <form method="post" action="../views/busqueda.php" class="form-inline my-2 my-lg-0">
                   <input class="form-control mr-sm-2" type="search" placeholder="Buscar" name="buscar" aria-label="Buscar">
-                  <!--<select class="form-control mr-sm-2" name="filtro">
-                  <option value="nombre_persona">Nombre</option>
-                  <option value="dni">DNI</option>
-                  <option value="nombre_deporte">Materia</option>
-                  <option value="nota">Nota</option>
-                </select>-->
                   <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
                 </form>
               </li>
               <li class="nav-item">
-                <?php include '../config/sesionOpen.php'; ?>
+                <?php include_once '../config/sesionOpen.php'; ?>
               </li>
             </ul>
           </div>
@@ -90,7 +92,6 @@
                 <input type="text" class="form-control" id="perfil" name="perfil" min="0" placeholder="perfil" value="operador" readonly>
               </div>
             </div>
-
             <div class="form-row">
               <div class="form-group col-md-6 text-center">
                 <button type="submit" id="botonProcesar" class="btn btn-primary" disabled>Procesar</button>
@@ -104,7 +105,6 @@
       </div>
     </div>
     <footer class="text-center">
-
       <div class="container">
         <div class="row">
           <div class="col">
@@ -118,10 +118,8 @@
       </div>
     </footer>
   </div>
-
   <script src="../add/botonusuario.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
