@@ -9,8 +9,6 @@
   <link rel="stylesheet" type="text/css" href="../css/home.css">
   <link rel="stylesheet" type="text/css" href="../css/alumnosinscriptos.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
 </head>
 
 <body>
