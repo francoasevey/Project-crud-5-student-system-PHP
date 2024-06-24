@@ -24,11 +24,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $link->query($sql);
 
     if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
         $_SESSION["usuario"] = $usuario;
-
+        $_SESSION["perfil"] = $row['perfil'];
+    
         header("Location: ../views/home.php");
         exit();
-    } else {
+    }
+     else {
         header("Location: ../config/sesion.php?error=1"); 
         exit();
     }
