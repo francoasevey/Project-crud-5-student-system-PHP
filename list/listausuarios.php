@@ -70,16 +70,15 @@
 
     <div class="container content-container">
       <div class="table-container">
-        <h2 class="text-center">Listar Alumnos</h2>
+        <h2 class="text-center">Listar Usuarios</h2>
         <table class="table table-bordered table-hover">
           <thead class="thead-dark">
             <tr>
               <th>ID</th>
-              <th>Nombre</th>
-              <th>Apellido</th>
-              <th>DNI</th>
+              <th>Usuario</th>
+              <th>Clave</th>
               <th>Email</th>
-              <th>Telefono</th>
+              <th>Perfil</th>
               <th>Eliminar</th>
               <th>Modificar</th>
             </tr>
@@ -92,14 +91,16 @@
             $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
             $inicio = ($pagina_actual - 1) * $registros_por_pagina;
 
-            $consulta = "SELECT * FROM alumnos LIMIT $inicio, $registros_por_pagina";
+            /*$consulta = "SELECT * FROM usuarios WHERE perfil NOT LIKE '%administrativo%' LIMIT $inicio, $registros_por_pagina";*/
+
+            $consulta = "SELECT * FROM usuarios LIMIT $inicio, $registros_por_pagina";
             if (!($resultado = mysqli_query($link, $consulta))) {
               echo "<p>Error: La consulta SQL tiene un problema, verificar.</p> <br>";
               echo "<p>$consulta</p>";
               exit();
             }
 
-            $consulta_total = "SELECT COUNT(*) as total FROM alumnos";
+            $consulta_total = "SELECT COUNT(*) as total FROM usuarios";
             $resultado_total = mysqli_query($link, $consulta_total);
             $fila_total = mysqli_fetch_assoc($resultado_total);
             $total_registros = $fila_total['total'];
@@ -121,16 +122,15 @@
               echo "<td>$row[2]</td>";
               echo "<td>$row[3]</td>";
               echo "<td>$row[4]</td>";
-              echo "<td>$row[5]</td>";
 
               echo "<td>
-                    <form method='post' action='../delete/eliminaralumno.php'>
+                    <form method='post' action='../delete/eliminarusuario.php'>
                     <input type='hidden' name='id' value='$row[0]'>
                     <button type='submit' class='btn btn-danger'>Eliminar</button>
                     </form>
                     </td>";
               echo "<td>
-                    <form method='post' action='../edit/editaralumno.php'>
+                    <form method='post' action='../edit/editarusuario.php'>
                     <input type='hidden' name='id' value='$row[0]'>
                     <button type='submit' class='btn btn-warning'>Modificar</button>
                     </form>

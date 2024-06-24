@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Carga Nuevo Usuario</title>
+  <title>Modificar Persona</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../css/home.css">
   <link rel="stylesheet" href="../css/formulario.css">
@@ -66,26 +66,35 @@
     <div class="container">
       <div class="table-container">
         <div class="container">
-          <h2 class="card-title text-center mt-4 mb-4"><strong>Crear Usuario</strong></h2>
-          <form method="post" action="../add/addusuarioproceso.php">
+          <h2 class="card-title text-center mt-4 mb-4"><strong>Modificar Usuario</strong></h2>
+          <?php
+          include '../config/conexionUsuarios.php';
+          ?>
+          <form method="post" action="editarusuarioproceso.php">
             <div class="form-row">
               <div class="form-group col-sm-6">
-                <label for="usuario">Usuario:</label>
-                <input type="text" class="form-control" id="usuario" name="usuario" placeholder="usuario" required>
+                <label for="id">ID:</label>
+                <input type="text" class="form-control" id="id" name="id" readonly value="<?php echo $row[0] ?>">
               </div>
               <div class="form-group col-sm-6">
-                <label for="clave">Clave:</label>
-                <input type="password" class="form-control" id="clave" name="clave" placeholder="clave" required>
+                <label for="usuario">Usuario:</label>
+                <input type="text" class="form-control" id="usuario" name="usuario" required value="<?php echo $row[1] ?>">
               </div>
             </div>
             <div class="form-row">
               <div class="form-group col-sm-6">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                <label for="clave">Clave:</label>
+                <input type="text" class="form-control" id="clave" name="clave" required value="<?php echo $row[2] ?>">
               </div>
               <div class="form-group col-sm-6">
-                <label for="perfil">perfil:</label>
-                <input type="text" class="form-control" id="perfil" name="perfil" min="0" placeholder="perfil" value="operador" readonly>
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" required value="<?php echo $row[3] ?>">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-6">
+                <label for="perfil">Perfil:</label>
+                <input type="text" class="form-control" id="perfil" name="perfil" readonly value="<?php echo $row[4] ?>">
               </div>
             </div>
 
@@ -116,7 +125,6 @@
       </div>
     </footer>
   </div>
-
   <script src="../add/botonusuario.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>

@@ -55,7 +55,7 @@
 
     <div class="contenedor-form registrar">
       <h2>Registrarse</h2>
-      <form action="../add/crearusuario.php" method="post">
+      <form action="../add/crearusuariosesion.php" method="post">
         <div class="contenedor-input">
           <span class="icono"><i class="ri-user-fill"></i></span>
           <input type="text" name="usuario" id="usuario" required>
